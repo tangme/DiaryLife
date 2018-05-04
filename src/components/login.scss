@@ -1,0 +1,59 @@
+.login{
+	width: 100%;
+	height: 100%;
+	background: url('http://thepatternlibrary.com/img/u.png') repeat;
+	/* background-size: cover; */
+	position: relative;
+	&-panel{
+		position: absolute;
+		right: 160px;
+		top:50%;
+		transform: translateY(-60%);
+		width: 300px;
+		border:1px solid;
+		box-shadow: 0 0 15px;
+		border-radius:5px;
+		&-title{
+			font-size: 1.5rem;
+		}
+		&-formCom{
+			margin:10px auto;
+			padding: 5px;
+			&-input{
+				box-sizing: border-box;
+				display: inline-block;
+			    height: 32px;
+			    line-height: 1.5;
+			    padding: 4px 7px;
+			    font-size: 12px;
+			    border: 1px solid #dddee1;
+			    border-radius: 4px;
+			    color: #495060;
+			    background-color: #fff;
+			    background-image: none;
+			    position: relative;
+			    cursor: text;
+			    transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;
+			    &:hover,&:focus{
+			    	border-color:#57a3f3;
+			    }
+			    &:focus {
+				    outline: 0;
+				    box-shadow: 0 0 0 2px rgba(45,140,240,.2)
+				}
+			}
+		}
+		&-btn{
+			width: 90%;
+			padding: 8px 0;
+			margin: 5px auto;
+			color:#fff;
+			cursor: pointer;
+			background-color: #2d8cf0;
+			transition: color .2s linear,background-color .2s linear,border .2s linear,box-shadow .2s linear;
+			&:hover{
+				background-color:#57a3f3;
+			}
+		}
+	}
+}
