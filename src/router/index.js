@@ -13,13 +13,13 @@ const RouterConfig = {
 
 export const router = new VueRouter(RouterConfig);
 
-/*router.beforeEach((to,form,next)=>{
+router.beforeEach((to,form,next)=>{
 	if(!Cookies.get('account') && to.name!='login'){
 		next({name:'login'});
 	}else{
 		next();
 	}
-});*/
+});
 /*export default new VueRouter({
   routes: [
     {
