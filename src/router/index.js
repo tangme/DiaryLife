@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import {routers} from './router'
 import Cookies from 'js-cookie'
 
@@ -20,12 +19,4 @@ router.beforeEach((to,form,next)=>{
 		next();
 	}
 });
-/*export default new VueRouter({
-  routes: [
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
-  ]
-})*/
+

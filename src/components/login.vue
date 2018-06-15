@@ -34,23 +34,23 @@ export default{
 			if(!!tmpAccount){
 				this.account = tmpAccount;
 			}
-			console.log(Showbo);
 		},
 		login(){
-			Showbo.Msg.alert('您好，请先注册或登录!');
-			return;
 			if(!(!!this.account && !!this.pwd)){
 				alert("please input account and pwd;");
 				return;
 			}
-			console.log("hello");
 			if(this.unLogin){
 				var inFifteenMinutes = new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000);
 				Cookies.set('account',this.account,{
 					expires:inFifteenMinutes
 				});
+			}else{
+				Cookies.set('account',this.account);
 			}
-			/*this.$router.push({name:'home_index'});*/
+			this.$router.push({
+                name: 'home_index'
+            });
 		}
 	},
 	mounted(){

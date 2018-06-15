@@ -18,7 +18,7 @@ export const otherRouter = {
 	redirect:'/home',
 	component:Main,
 	children:[
-		{path:'home',title:'首页',name:'home_index',component:()=>import('@/components/HelloWorld')}
+		{path:'home',title:'首页',name:'home_index',component:()=>import('@/components/today')}
 	]
 };
 

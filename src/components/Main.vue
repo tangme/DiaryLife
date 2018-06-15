@@ -1,6 +1,5 @@
 <template>
 	<div>
-		this is main view. hello
 		<router-view/>
 	</div>
 
