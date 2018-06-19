@@ -3,8 +3,8 @@
         <br>
         <input type="text" class="todoInput" v-model="inputData" @keydown.enter="saveInfo" placeholder="要记录点什么呢~"/>
         <div class="todoList_div">
-            <ul>
-                <li class="todoList_li" v-for="(item,index) in showList">
+            <ul class="todoList_ul">
+                <li class="todoList_li" v-for="(item,index) in showList" @click="showItem(item)">
                     {{item}}
                     <span class="todoList_span" @click="delItem(index)">x</span>
                 </li>
@@ -14,8 +14,15 @@
     </div>
 </template>
 <script>
+import Cookies from 'js-cookie';
 export default {
     name: 'HelloWorld',
+    mounted(){
+        console.log(Cookies.get('account'));
+        if(!!sessionStorage.getItem('todoList')){
+            this.showList = JSON.parse(sessionStorage.getItem('todoList'))
+        }
+    },
     data() {
         return {
             inputData: '',
@@ -25,9 +32,22 @@ export default {
     methods:{
         saveInfo(){
             this.showList.push(this.inputData);
+            let tmpData;
+            if(!!sessionStorage.getItem('todoList')){
+                tmpData = JSON.parse(sessionStorage.getItem('todoList'));
+                tmpData.push(this.inputData);
+                sessionStorage.setItem('todoList',JSON.stringify(tmpData));
+            }else{
+                sessionStorage.setItem('todoList',JSON.stringify(new Array(this.inputData)));
+            }
+            
+            console.log(JSON.parse(sessionStorage.getItem('todoList')));
             this.inputData = "";
         },
-        delItem(index){
+        showItem(info){//显示所选日迹
+            console.info(info);
+        },
+        delItem(index){//删除所选日迹
             console.log(index);
             this.showList.splice(index,1);
         }
@@ -41,19 +61,25 @@ export default {
     margin:auto;
     text-align: left;
 }
+.todoList_ul{
+    list-style: none;
+    padding-left: 0;
+}
 .todoList_li{
     position: relative;
     background-color: lightblue;
     border-left: 3px solid #ccc;
-    padding: 4px 7px;
+    padding: 5px 8px;
     margin: 5px 0;
+    cursor: pointer;
+    font-size: 1.2rem;
 }
 .todoList_span{
     cursor: pointer;
     position: absolute;
     background-color: lightcoral;
     height: 100%;
-    right: 0;
+    right: -20px;
     top: 0;
     width: 20px;
     text-align: center;
