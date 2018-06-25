@@ -11,6 +11,11 @@ export const loginRouter = {
 	name:'login',
 	component:()=> import('@/components/login.vue')
 };
+export const registerRouter = {
+	path:'/register',
+	name:'register',
+	component:()=> import('@/components/register')
+};
 
 export const otherRouter = {
 	path:'/',
@@ -24,5 +29,6 @@ export const otherRouter = {
 
 export const routers = [
 	loginRouter,
+	registerRouter,
 	otherRouter
 ];

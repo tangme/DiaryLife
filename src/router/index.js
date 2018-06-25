@@ -14,7 +14,11 @@ export const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to,form,next)=>{
 	if(!Cookies.get('account') && to.name!='login'){
-		next({name:'login'});
+		if(to.name == 'register'){
+			next();
+		}else{
+			next({name:'login'});
+		}
 	}else{
 		next();
 	}

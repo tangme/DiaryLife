@@ -12,6 +12,7 @@
 			<div>
 				<input type="checkbox" id="un-login" v-model="unLogin">
 				<label for="un-login">三天免登录</label>
+				<a @click="gotoRegister">注册</a>
 			</div>
 		</div>
 		<div class="test"></div>
@@ -20,6 +21,7 @@
 <script>
 import Cookies from 'js-cookie';
 import {Showbo} from '@/assets/showBo/showBo';
+import Axios from 'axios';
 export default{
 	data(){
 		return {
@@ -36,6 +38,17 @@ export default{
 			}
 		},
 		login(){
+			Axios.post('http://localhost:3000/',{
+			    firstName: 'Fred',
+			    lastName: 'Flintstone'
+			})
+			.then(function (response) {
+			    console.log(response);
+			})
+			.catch(function (error) {
+			    console.log(error);
+			});
+			return;
 			if(!(!!this.account && !!this.pwd)){
 				alert("please input account and pwd;");
 				return;
@@ -51,6 +64,12 @@ export default{
 			this.$router.push({
                 name: 'home_index'
             });
+		},
+		gotoRegister(){
+			this.$router.push({
+                name: 'register'
+            });
+			console.log("===");
 		}
 	},
 	mounted(){
