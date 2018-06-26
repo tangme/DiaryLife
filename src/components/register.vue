@@ -2,32 +2,52 @@
 	@import './register.scss';
 </style>
 <template>
-	<div>
+	<div class="out-div">
 		<div class="register-panel">
 			<h1>
 				账号注册
 				<span>已有账号，<a href="">立即登录</a> </span>
 			</h1>
 			<hr>
-			<div style="display: table;width: 100%;">
-				<div class="animated" style="display: table-cell;">
-					<span>电子邮箱</span>
+			<div class="register-panel-row">
+				<div class="animated" v-bind:class="{ fadeInUp: registerForm.email,slideOutLeft: !registerForm.email}"  v-bind:style="{ display: emailDisplay }">
+					<span>电子邮箱：</span>
 				</div>
 				<input type="text" placeholder="请输入电子邮箱" v-model="registerForm.email">
 			</div>
-			<div><input type="text" placeholder="请输入电话号码" v-model="registerForm.phone"></div>
-			<div><input type="text" placeholder="请输入昵称" v-model="registerForm.nickname"></div>
-			<div><input type="password" placeholder="请输入密码" v-model="registerForm.pwd"></div>
-			<div><input type="password" placeholder="请确认密码" v-model="registerForm.comfirmPwd"></div>
+			<div class="register-panel-row">
+				<div class="animated" v-bind:class="{ fadeInUp: registerForm.phone,slideOutLeft: !registerForm.phone}"  v-bind:style="{ display: phoneDisplay }">
+					<span>电话号码：</span>
+				</div>
+				<input type="text" placeholder="请输入电话号码" v-model="registerForm.phone">
+			</div>
+			<div class="register-panel-row">
+				<div class="animated" v-bind:class="{ fadeInUp: registerForm.nickname,slideOutLeft: !registerForm.nickname}"  v-bind:style="{ display: nicknameDisplay }">
+					<span>昵称：</span>
+				</div>
+				<input type="text" placeholder="请输入昵称" v-model="registerForm.nickname">
+			</div>
+			<div class="register-panel-row">
+				<div class="animated" v-bind:class="{ fadeInUp: registerForm.pwd,slideOutLeft: !registerForm.pwd}"  v-bind:style="{ display: pwdDisplay }">
+					<span>密码：</span>
+				</div>
+				<input type="password" placeholder="请输入密码" v-model="registerForm.pwd">
+			</div>
+			<div class="register-panel-row">
+				<div class="animated" v-bind:class="{ fadeInUp: registerForm.comfirmPwd,slideOutLeft: !registerForm.comfirmPwd}"  v-bind:style="{ display: comfirmPwdDisplay }">
+					<span>确认密码：</span>
+				</div>
+				<input type="password" placeholder="请确认密码" v-model="registerForm.comfirmPwd">
+			</div>
 			<hr>
 			<button class="register-panel-button" @click="register">注册</button>
 		</div>
-	<!-- http://thepatternlibrary.com/img/i.jpg -->
 	</div>
 </template>
 <script>
 import Axios from 'axios';
 import animate from 'animate.css';
+import {res} from '@/assets/js/Utils';
 
 export default{
 	data(){
@@ -42,6 +62,21 @@ export default{
 		}
 	},
 	computed:{
+		emailDisplay(){
+			return !!this.registerForm.email?'table-cell':'none';
+		},
+		phoneDisplay(){
+			return !!this.registerForm.phone?'table-cell':'none';
+		},
+		nicknameDisplay(){
+			return !!this.registerForm.nickname?'table-cell':'none';
+		},
+		pwdDisplay(){
+			return !!this.registerForm.pwd?'table-cell':'none';
+		},
+		comfirmPwdDisplay(){
+			return !!this.registerForm.comfirmPwd?'table-cell':'none';
+		},
 		isEmail(){//是否为有效电子邮箱
 			let patt = new RegExp(/^([A-z]|[0-9])+@([A-z]|[0-9])+\.[A-z]/);
 			if(!!this.registerForm.email){
@@ -81,17 +116,8 @@ export default{
 	},
 	methods:{
 		register(){
-			console.log('hello');
-			Axios.post('http://localhost:3000/register',{
-			    registerForm: this.registerForm
-			},{
-				headers: {'tanglv': 'zhoudan'}
-			})
-			.then(function (response) {
-			    console.log(response);
-			})
-			.catch(function (error) {
-			    console.log(error);
+			res('http://localhost:3000/register',this.registerForm,function(data){
+				console.log(data);
 			});
 		}
 	}
