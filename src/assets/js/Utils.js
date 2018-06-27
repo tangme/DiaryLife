@@ -4,8 +4,10 @@ export function res(url,params,successFun,failFun){
 	axios.post(url,{
 	    data: params
 	},{
-		/*withCredentials: true,*/
-		headers: {'tanglv': 'zhoudan'}
+		headers:{
+			'timestamp':parseInt(new Date().getTime() / 1000),
+			'tanglv':'zhoudan'
+		}
 	})
 	.then(function (response) {
 	    if(!!successFun){

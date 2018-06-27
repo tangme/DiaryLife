@@ -38,7 +38,7 @@ export default{
 			}
 		},
 		login(){
-			Axios.post('http://localhost:3000/',{
+			Axios.post('http://localhost:3000/server/login',{
 			    firstName: 'Fred',
 			    lastName: 'Flintstone'
 			})
