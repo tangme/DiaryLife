@@ -39,11 +39,11 @@ export default{
 		},
 		login(){
 			Axios.post('http://localhost:3000/server/login',{
-			    firstName: 'Fred',
-			    lastName: 'Flintstone'
+			    account: this.account,
+			    pwd: this.pwd
 			})
 			.then(function (response) {
-			    console.log(response);
+			    alert(response.data.msg);
 			})
 			.catch(function (error) {
 			    console.log(error);

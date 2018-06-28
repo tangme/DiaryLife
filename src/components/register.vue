@@ -116,8 +116,8 @@ export default{
 	},
 	methods:{
 		register(){
-			res('http://localhost:3000/register',this.registerForm,function(data){
-				console.log(data);
+			res('http://localhost:3000/server/register',this.registerForm,function(data){
+				alert(data.data.msg);
 			});
 		}
 	}
