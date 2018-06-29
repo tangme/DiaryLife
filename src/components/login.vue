@@ -38,21 +38,27 @@ export default{
 			}
 		},
 		login(){
+			if(!(!!this.account && !!this.pwd)){
+				alert("please input account and pwd;");
+				return;
+			}
 			Axios.post('http://localhost:3000/server/login',{
 			    account: this.account,
 			    pwd: this.pwd
 			})
-			.then(function (response) {
-			    alert(response.data.msg);
+			.then(res => {
+				alert(res.data.msg);
+			    if(res.data.code == 1){
+			    	console.log('lalal');
+			    	this.$router.push({
+		                name: 'home_index'
+		            });
+			    }
 			})
 			.catch(function (error) {
 			    console.log(error);
 			});
 			return;
-			if(!(!!this.account && !!this.pwd)){
-				alert("please input account and pwd;");
-				return;
-			}
 			if(this.unLogin){
 				var inFifteenMinutes = new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000);
 				Cookies.set('account',this.account,{
@@ -61,9 +67,6 @@ export default{
 			}else{
 				Cookies.set('account',this.account);
 			}
-			this.$router.push({
-                name: 'home_index'
-            });
 		},
 		gotoRegister(){
 			this.$router.push({
