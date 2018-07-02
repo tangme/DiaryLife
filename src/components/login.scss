@@ -1,20 +1,27 @@
 .login{
 	width: 100%;
 	height: 100%;
-	background: url('http://thepatternlibrary.com/img/u.png') repeat;
+	background: url('http://thepatternlibrary.com/img/aq.jpg') repeat;
 	/* background-size: cover; */
 	position: relative;
+	display: flex;
+	justify-content:center;
+    align-items:center;
 	&-panel{
 		position: absolute;
-		right: 160px;
-		top:50%;
-		transform: translateY(-60%);
 		width: 300px;
-		border:1px solid;
 		box-shadow: 0 0 15px;
 		border-radius:5px;
+		background: #fff;
+		hr{
+			width: 90%;
+			height:1px;
+			border:none;
+			border-top:1px ridge #ccc;
+		}
 		&-title{
 			font-size: 1.5rem;
+			margin:10px auto;
 		}
 		&-formCom{
 			margin:10px auto;
@@ -22,10 +29,9 @@
 			&-input{
 				box-sizing: border-box;
 				display: inline-block;
-			    height: 32px;
-			    line-height: 1.5;
-			    padding: 4px 7px;
-			    font-size: 12px;
+				width:90%;
+			    padding: 10px 7px;
+			    font-size: 14px;
 			    border: 1px solid #dddee1;
 			    border-radius: 4px;
 			    color: #495060;
@@ -43,8 +49,16 @@
 				}
 			}
 		}
+		&-unLogin{
+			text-align: left;
+    		text-indent: 20px;
+		}
+		&-btnGroup{
+			margin:10px auto;
+		}
 		&-btn{
-			width: 90%;
+			display:inline-block;
+			width: 45%;
 			padding: 8px 0;
 			margin: 5px auto;
 			color:#fff;

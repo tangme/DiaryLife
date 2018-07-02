@@ -6,20 +6,22 @@
 		<div class="register-panel">
 			<h1>
 				账号注册
-				<span>已有账号，<a href="">立即登录</a> </span>
+				<span>已有账号，<a @click="$router.push({name:'login'})">立即登录</a> </span>
 			</h1>
 			<hr>
 			<div class="register-panel-row">
 				<div class="animated" v-bind:class="{ fadeInUp: registerForm.email,slideOutLeft: !registerForm.email}"  v-bind:style="{ display: emailDisplay }">
 					<span>电子邮箱：</span>
 				</div>
-				<input type="text" placeholder="请输入电子邮箱" v-model="registerForm.email">
+				<input type="text" placeholder="请输入电子邮箱" v-model="registerForm.email" @input="hello">
+				<div class="register-panel-row-notice">{{this.isEmail}}</div>
 			</div>
 			<div class="register-panel-row">
 				<div class="animated" v-bind:class="{ fadeInUp: registerForm.phone,slideOutLeft: !registerForm.phone}"  v-bind:style="{ display: phoneDisplay }">
 					<span>电话号码：</span>
 				</div>
 				<input type="text" placeholder="请输入电话号码" v-model="registerForm.phone">
+				<div class="register-panel-row-notice">{{this.isPhone}}</div>
 			</div>
 			<div class="register-panel-row">
 				<div class="animated" v-bind:class="{ fadeInUp: registerForm.nickname,slideOutLeft: !registerForm.nickname}"  v-bind:style="{ display: nicknameDisplay }">
@@ -48,8 +50,12 @@
 import Axios from 'axios';
 import animate from 'animate.css';
 import {res} from '@/assets/js/Utils';
+import _ from 'lodash';
 
 export default{
+	beforeUpdate(){
+		console.log('tanglv');
+	},
 	data(){
 		return{
 			registerForm:{
@@ -81,9 +87,9 @@ export default{
 			let patt = new RegExp(/^([A-z]|[0-9])+@([A-z]|[0-9])+\.[A-z]/);
 			if(!!this.registerForm.email){
 				if(patt.test(this.registerForm.email)){
-					return '邮箱格式 正确';
+					return '邮箱格式正确';
 				}else{
-					return '邮箱格式 错误';
+					return '邮箱格式错误';
 				}
 			}else{
 				return '';
@@ -93,9 +99,9 @@ export default{
 			let patt = new RegExp(/^[1][356789][0-9]{9}$/);
 			if(!!this.registerForm.phone){
 				if(patt.test(this.registerForm.phone)){
-					return '电话格式 正确';
+					return '电话格式正确';
 				}else{
-					return '电话格式 错误';
+					return '电话格式错误';
 				}
 			}else{
 				return '';
@@ -119,7 +125,10 @@ export default{
 			res('http://localhost:3000/server/register',this.registerForm,function(data){
 				alert(data.data.msg);
 			});
-		}
+		},
+		hello:_.debounce(function () {
+		    console.log('123');
+		}, 500)
 	}
 }	
 </script>

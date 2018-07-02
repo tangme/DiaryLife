@@ -1,14 +1,14 @@
 .out-div{
 	width: 100%;
 	height: 100%;
-	background: url(http://thepatternlibrary.com/img/i.jpg);
+	background: url(http://thepatternlibrary.com/img/aq.jpg);
 	display: flex;
     justify-content:center;
     align-items:center;
 }
 .register-panel{
 	position: absolute;
-	width: 400px;
+	width: 300px;
 	padding: 10px;
 	box-shadow: 0 0 10px 1px #565656;
 	background-color: #fff;
@@ -23,6 +23,9 @@
 			right: 12px;
 			bottom: 0;
 			font-size: 14px;
+			a{
+				cursor: pointer;
+			}
 		}
 	}
 	> hr{
@@ -30,12 +33,22 @@
 		border-color: #fff;
 	}
 	&-row{
+		position: relative;
 		display: table;
+		margin: 10px 0;
 		width: 100%;
 		> div{
 			width: 86px;
 			text-align: right;
 			font-size: 14px;
+		}
+		> .register-panel-row-notice{
+			position: absolute;
+			text-align: left;
+			text-indent: 12px;
+			bottom: -13px;
+			width: 100%;
+			color: #ed3f14;
 		}
 	}
 	input{

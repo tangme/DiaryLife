@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import {router} from './router/index.js'
+import _ from 'lodash';
+Object.defineProperty(Vue.prototype, '_', { value: _ });
 
 Vue.config.productionTip = false
 
