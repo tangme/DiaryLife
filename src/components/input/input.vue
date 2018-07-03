@@ -4,12 +4,13 @@
 <template>
     <div class="wrapper">
         <div class="animated" :class="{fadeInUp:currentValue,slideOutLeft:!currentValue}">
-            <span>电子|邮箱：</span>
+            <span>电子邮箱：</span>
         </div>
         <input 
         	:type="type" 
         	:placeholder="placeholder" 
-        	:value="currentValue">
+        	:value="currentValue"
+        	@input="handleInput">
     </div>
 </template>
 <script>
@@ -18,11 +19,11 @@
 export default {
 	props:{
 		type:{
-			/*validator(value){
+			validator(value){
 				return ['text', 'textarea', 'password', 'url', 'email', 'date'].some(function(item){
 					return item == value;
 				})
-			},*/
+			},
 			default:'text'
 		},
 		value:{
@@ -36,18 +37,23 @@ export default {
 	},
 	data(){
 		return {
-			currentValue:"tanglv"
+			currentValue:this.value
 		};
 	},
 	methods:{
-		
+		setCurrentValue(value){
+			if(value === this.currentValue) return;
+			this.currentValue = value;
+		},
+		handleInput(event){
+			let value = event.target.value;
+			this.$emit('input', value);
+            this.setCurrentValue(value);
+		}
 	},
 	watch: {
         value (val) {
-        	console.log('=========');
-        },
-        currentValue(val){
-        	console.log('lalalla');
+        	this.setCurrentValue(val);
         }
     }
 }

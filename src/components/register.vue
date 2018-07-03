@@ -59,20 +59,17 @@ export default{
 		tanglvinput
 	},
 	watch:{
-		/*'registerForm.test'(value){
-			console.log(value);
-		}*/
+		
 	},
 	data(){
 		return{
-			tanglv:'',
 			registerForm:{
 				email:'',
 				phone:'',
 				nickname:'',
 				pwd:'',
 				comfirmPwd:'',
-				test:'123'
+				test:'zhoudan'
 			}
 		}
 	},
