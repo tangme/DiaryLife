@@ -43,6 +43,7 @@
 			</div>
 			<hr>
 			<button class="register-panel-button" @click="register">注册</button>
+			<tanglvinput type="text" placeholder="请输入电子邮箱" v-model="registerForm.test"></tanglvinput>
 		</div>
 	</div>
 </template>
@@ -51,19 +52,27 @@ import Axios from 'axios';
 import animate from 'animate.css';
 import {res} from '@/assets/js/Utils';
 import _ from 'lodash';
+import tanglvinput from '@/components/input/input';
 
 export default{
-	beforeUpdate(){
-		console.log('tanglv');
+	components:{
+		tanglvinput
+	},
+	watch:{
+		/*'registerForm.test'(value){
+			console.log(value);
+		}*/
 	},
 	data(){
 		return{
+			tanglv:'',
 			registerForm:{
 				email:'',
 				phone:'',
 				nickname:'',
 				pwd:'',
-				comfirmPwd:''
+				comfirmPwd:'',
+				test:'123'
 			}
 		}
 	},
