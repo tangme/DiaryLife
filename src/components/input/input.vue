@@ -3,14 +3,25 @@
 </style>
 <template>
     <div class="wrapper">
-        <div class="animated" :class="{fadeInUp:currentValue,slideOutLeft:!currentValue}">
-            <span>电子邮箱：</span>
+    	<div class="input-label" >
+            {{label}}
+        </div>
+        <div class="input-div" :class="{withCon:currentValue}">
+            <input class="input"
+        	:type="type" 
+        	:placeholder="placeholder" 
+        	:value="currentValue"
+        	@input="handleInput">
+        </div>
+        
+        <!-- <div class="animated" :class="{slideInRight:currentValue,zoomOut:!currentValue}" :style="{display:!currentValue?'none':'table-cell'}">
+            <span>{{label}}</span>
         </div>
         <input 
         	:type="type" 
         	:placeholder="placeholder" 
         	:value="currentValue"
-        	@input="handleInput">
+        	@input="handleInput"> -->
     </div>
 </template>
 <script>
@@ -31,6 +42,10 @@ export default {
 			default:''
 		},
 		placeholder:{
+			type:String,
+			default:''
+		},
+		label:{
 			type:String,
 			default:''
 		}

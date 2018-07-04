@@ -9,7 +9,16 @@
 				<span>已有账号，<a @click="$router.push({name:'login'})">立即登录</a> </span>
 			</h1>
 			<hr>
-			<div class="register-panel-row">
+			<tanglvinput type="text" label='电子邮箱 ' placeholder="电子邮箱" v-model="registerForm.email"></tanglvinput>
+			<br>
+			<tanglvinput type="text" label='电话号码 ' placeholder="电话号码" v-model="registerForm.phone"></tanglvinput>
+			<br>
+			<tanglvinput type="text" label='昵称 ' placeholder="昵称" v-model="registerForm.nickname"></tanglvinput>
+			<br>
+			<tanglvinput type="text" label='密码 ' placeholder="密码" v-model="registerForm.pwd"></tanglvinput>
+			<br>
+			<tanglvinput type="text" label='确认密码 ' placeholder="确认密码" v-model="registerForm.comfirmPwd"></tanglvinput>
+			<!-- <div class="register-panel-row">
 				<div class="animated" v-bind:class="{ fadeInUp: registerForm.email,slideOutLeft: !registerForm.email}"  v-bind:style="{ display: emailDisplay }">
 					<span>电子邮箱：</span>
 				</div>
@@ -40,10 +49,10 @@
 					<span>确认密码：</span>
 				</div>
 				<input type="password" placeholder="请确认密码" v-model="registerForm.comfirmPwd">
-			</div>
+			</div> -->
 			<hr>
 			<button class="register-panel-button" @click="register">注册</button>
-			<tanglvinput type="text" placeholder="请输入电子邮箱" v-model="registerForm.test"></tanglvinput>
+			
 		</div>
 	</div>
 </template>
