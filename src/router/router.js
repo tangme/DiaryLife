@@ -6,15 +6,16 @@
 
 import Main from '@/components/Main.vue'
 
-export const loginRouter = {
-	path:'/login',
-	name:'login',
-	component:()=> import('@/components/login.vue')
-};
-export const registerRouter = {
-	path:'/register',
-	name:'register',
-	component:()=> import('@/components/register')
+
+
+export const signInOutRouter = {
+	path:'/signInOut',
+	name:'signInOut',
+	component:()=>import('@/components/signIn-signUp/signIn-signUp'),
+	children:[
+		{path:'login',name:'login',component:()=> import('@/components/signIn-signUp/login.vue')},
+		{path:'register',name:'register',component:()=> import('@/components/signIn-signUp/register.vue')}
+	]
 };
 
 export const otherRouter = {
@@ -23,12 +24,12 @@ export const otherRouter = {
 	redirect:'/home',
 	component:Main,
 	children:[
-		{path:'home',title:'首页',name:'home_index',component:()=>import('@/components/today')}
+		{path:'home',title:'首页',name:'home_index',component:()=>import('@/components/today')},
+		{path:'userCenter',title:'个人中心',name:'userCenter',component:()=>import('@/components/userCenter')}
 	]
 };
 
 export const routers = [
-	loginRouter,
-	registerRouter,
+	signInOutRouter,
 	otherRouter
 ];

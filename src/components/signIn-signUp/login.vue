@@ -42,7 +42,7 @@ export default{
 		},
 		login(){
 			if(!(!!this.account && !!this.pwd)){
-				alert("please input account and pwd;");
+				alert("请输入帐号与密码进行登录");
 				return;
 			}
 			Axios.post('http://localhost:3000/server/login',{
@@ -52,10 +52,9 @@ export default{
 			.then(res => {
 				alert(res.data.msg);
 			    if(res.data.code == 1){
-			    	console.log('lalal');
-			    	this.$router.push({
-		                name: 'home_index'
-		            });
+			    	console.log(res.data);
+			    	this.$store.commit('initUserInfo',res.data.userObj)
+			    	this.$router.push({name: 'home_index'});
 			    }
 			})
 			.catch(function (error) {
@@ -75,7 +74,6 @@ export default{
 			this.$router.push({
                 name: 'register'
             });
-			console.log("===");
 		}
 	},
 	mounted(){
@@ -86,6 +84,6 @@ export default{
 <style lang="scss" scoped>
 	@import './login.scss';
 </style>
-<style>
+<!-- <style>
 	@import '../assets/showBo/showBo.css';
-</style>
+</style> -->
