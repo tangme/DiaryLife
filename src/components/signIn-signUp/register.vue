@@ -62,6 +62,7 @@ import animate from 'animate.css';
 import {res} from '@/assets/js/Utils';
 import _ from 'lodash';
 import tanglvinput from '@/components/input/input';
+import {HOST} from '@/assets/config';
 
 export default{
 	components:{
@@ -137,7 +138,7 @@ export default{
 	},
 	methods:{
 		register(){
-			res('http://localhost:3000/server/register',this.registerForm,function(data){
+			res(HOST+'/server/register',this.registerForm,function(data){
 				alert(data.data.msg);
 			});
 		},

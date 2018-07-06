@@ -25,6 +25,7 @@
 import Cookies from 'js-cookie';
 import {Showbo} from '@/assets/showBo/showBo';
 import Axios from 'axios';
+import {HOST} from '@/assets/config';
 export default{
 	data(){
 		return {
@@ -45,7 +46,7 @@ export default{
 				alert("请输入帐号与密码进行登录");
 				return;
 			}
-			Axios.post('http://localhost:3000/server/login',{
+			Axios.post(HOST+'/server/login',{
 			    account: this.account,
 			    pwd: this.pwd
 			})

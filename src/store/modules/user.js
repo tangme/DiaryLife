@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 
 const user = {
 	state:{
@@ -12,6 +13,10 @@ const user = {
 			state.phone = userInfo.phone;
 			state.email = userInfo.email;
 			state.nickName = userInfo.nickName;
+			Cookies.set('userInfo',userInfo);
+		},
+		logout(state){
+			Cookies.remove('userInfo');
 		}
 	}
 };

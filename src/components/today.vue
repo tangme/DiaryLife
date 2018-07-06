@@ -18,7 +18,7 @@ import Cookies from 'js-cookie';
 export default {
     name: 'HelloWorld',
     mounted(){
-        console.log(Cookies.get('account'));
+        console.log(Cookies.get('userInfo'));
         if(!!sessionStorage.getItem('todoList')){
             this.showList = JSON.parse(sessionStorage.getItem('todoList'))
         }

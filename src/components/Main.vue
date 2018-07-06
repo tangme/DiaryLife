@@ -4,9 +4,7 @@
 			<div class="header">
 				<div class="user-group">
 					<div class="user-group-item" style="color: #f8f8f9;cursor: pointer;position: relative;" @click.self="showUserSetting">
-						{{$store.state.user.account}}
-						{{$store.state.user.email}}
-						{{$store.state.user.phone}}
+						{{userName}}
 						<ul class="dropdown-ul" ref="test">
 							<li @click="$router.push({name:'userCenter'})">个人中心</li>
 							<li @click="loginOut">退出登录</li>
@@ -33,13 +31,18 @@
 import Cookies from 'js-cookie';
 
 export default{
+	computed:{
+		userName(){
+			return this.$store.state.user.nickName || this.$store.state.user.account || this.$store.state.user.email || this.$store.state.user.email;
+		}
+	},
 	methods:{
 		showUserSetting(event){
 			let flag = this.$refs['test'].style.display;
 			this.$refs['test'].style.display = (flag=='block'?'none':'block');
 		},
 		loginOut(){
-			Cookies.remove('account');
+			this.$store.commit('logout');
 			sessionStorage.clear();
 			this.$router.push({name:'login'});
 		}
