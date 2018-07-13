@@ -1,6 +1,14 @@
 import axios from 'axios';
-
-export function res(url,params,successFun,failFun){
+/**
+ * [request 请求方法]
+ * @author tanglv 2018-07-13
+ * @param  {[type]} url        [请求地址]
+ * @param  {[type]} params     [请求参数]
+ * @param  {[type]} successFun [成功回调函数]
+ * @param  {[type]} failFun    [失败回调函数]
+ * @param  {[type]} $this      [组件上下文]
+ */
+export function request(url,params,successFun,failFun,$this){
 	axios.post(url,{
 	    data: params
 	},{

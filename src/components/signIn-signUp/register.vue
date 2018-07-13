@@ -59,7 +59,7 @@
 <script>
 import Axios from 'axios';
 import animate from 'animate.css';
-import {res} from '@/assets/js/Utils';
+import {request} from '@/assets/js/Utils';
 import _ from 'lodash';
 import tanglvinput from '@/components/input/input';
 import {HOST} from '@/assets/config';
@@ -138,7 +138,7 @@ export default{
 	},
 	methods:{
 		register(){
-			res(HOST+'/server/register',this.registerForm,function(data){
+			request(HOST+'/server/register',this.registerForm,function(data){
 				alert(data.data.msg);
 			});
 		},

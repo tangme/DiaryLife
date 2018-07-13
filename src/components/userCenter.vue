@@ -9,16 +9,20 @@
 			<tanglvinput label="绑定手机" placeholder="手机" v-model="userInfo.phone"/>
 			<br>
 			<tanglvinput label="绑定邮箱" placeholder="邮箱" v-model="userInfo.email"/>
-			<button>保存</button>
+			<button @click="updateData">保存</button>
 		</div>
 	</div>
 </template>
 <script>
 import tanglvinput from '@/components/input/input';	
 import Axios from 'axios';
+import {request} from '@/assets/js/Utils';
 import {HOST} from '@/assets/config';
 
 export default{
+	created(){
+		console.log('in usercenter created.');
+	},
 	components:{
 		tanglvinput
 	},
@@ -35,19 +39,15 @@ export default{
 	methods:{
 		/*更新数据*/
 		updateData(){
-			Axios.post(HOST+'/server/login',{
-			    account: this.account,
-			    pwd: this.pwd
-			})
-			.then(res => {
-				alert(res.data.msg);
-			    if(res.data.code == 1){
-			    	console.log(res.data);
-			    }
-			})
-			.catch(function (error) {
-			    console.log(error);
-			});
+			request(HOST+'/user/updateUserInfo',{
+			    account: this.userInfo.account,
+			    nickName: this.userInfo.nickName
+			},function(data){
+				console.log("--------------");
+				console.log(data);
+			},function(data){
+
+			},this);
 		}
 	}
 }	
