@@ -13,6 +13,7 @@ const user = {
 			state.phone = userInfo.phone;
 			state.email = userInfo.email;
 			state.nickName = userInfo.nickName;
+			window.sessionStorage.setItem('userInfo',JSON.stringify(userInfo));
 			Cookies.set('userInfo',userInfo);
 		},
 		logout(state){

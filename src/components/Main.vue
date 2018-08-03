@@ -30,12 +30,18 @@
 
 </template>
 <script>
-import Cookies from 'js-cookie';
-
 export default{
+	created(){
+		this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'));
+	},
+	data(){
+		return{
+			userInfo:null
+		}
+	},
 	computed:{
 		userName(){
-			return this.$store.state.user.nickName || this.$store.state.user.account || this.$store.state.user.email || this.$store.state.user.email;
+			return this.userInfo.nickName || this.userInfo.account || this.userInfo.email || this.userInfo.email;
 		}
 	},
 	methods:{
