@@ -26,6 +26,8 @@ import Cookies from 'js-cookie';
 import {Showbo} from '@/assets/showBo/showBo';
 import Axios from 'axios';
 import {HOST} from '@/assets/config';
+import * as Utils from '@/assets/js/Utils';
+
 export default{
 	data(){
 		return {
@@ -46,12 +48,28 @@ export default{
 				alert("请输入帐号与密码进行登录");
 				return;
 			}
-			Axios.post(HOST+'/server/login',{
+			let $this = this;
+			Utils.request(HOST+'/server/login',{
+			    account: this.account,
+			    pwd: this.pwd
+			},function(data){
+				alert(data.data.msg);
+				// console.log(data);
+			    if(data.data.code == 1){
+			    	console.log(data.data);
+			    	$this.$store.commit('initUserInfo',data.data.userObj)
+			    	$this.$router.push({name: 'home_index'});
+			    }
+			},function(error){
+				console.log(error);
+			},this);
+			/*Axios.post(HOST+'/server/login',{
 			    account: this.account,
 			    pwd: this.pwd
 			})
 			.then(res => {
 				alert(res.data.msg);
+				console.log(res);
 			    if(res.data.code == 1){
 			    	console.log(res.data);
 			    	this.$store.commit('initUserInfo',res.data.userObj)
@@ -60,7 +78,7 @@ export default{
 			})
 			.catch(function (error) {
 			    console.log(error);
-			});
+			});*/
 			return;
 			if(this.unLogin){
 				var inFifteenMinutes = new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000);

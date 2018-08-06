@@ -18,6 +18,7 @@ const user = {
 		},
 		logout(state){
 			Cookies.remove('userInfo');
+			Cookies.remove('connect.sid');
 		}
 	}
 };

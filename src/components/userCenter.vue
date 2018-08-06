@@ -18,10 +18,19 @@ import tanglvinput from '@/components/input/input';
 import Axios from 'axios';
 import {request} from '@/assets/js/Utils';
 import {HOST} from '@/assets/config';
+import * as Utils from '@/assets/js/Utils';
 
 export default{
 	created(){
-		console.log('in usercenter created.');
+		
+		return;
+		Axios.post(HOST+'/user/updateUserInfo',{})
+		.then(res => {
+			console.log(res);
+		})
+		.catch(function (error) {
+		    console.log(error);
+		});
 	},
 	components:{
 		tanglvinput
@@ -39,6 +48,12 @@ export default{
 	methods:{
 		/*更新数据*/
 		updateData(){
+			Utils.request(HOST+'/user/updateUserInfo',{},function(data){
+				console.log('request success and end.');
+			},function(error){
+				console.log(error);
+			},this);
+			return;
 			request(HOST+'/user/updateUserInfo',{
 			    account: this.userInfo.account,
 			    nickName: this.userInfo.nickName

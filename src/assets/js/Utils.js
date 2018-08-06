@@ -9,13 +9,10 @@ import axios from 'axios';
  * @param  {[type]} $this      [组件上下文]
  */
 export function request(url,params,successFun,failFun,$this){
-	axios.post(url,{
-	    data: params
-	},{
+	axios.post(url,params,{
 		headers:{
-			'timestamp':parseInt(new Date().getTime() / 1000),
-			'tanglv':'zhoudan'
-		}
+		},
+		withCredentials:true
 	})
 	.then(function (response) {
 	    if(!!successFun){
