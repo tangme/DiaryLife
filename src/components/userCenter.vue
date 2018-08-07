@@ -48,11 +48,14 @@ export default{
 	methods:{
 		/*更新数据*/
 		updateData(){
-			Utils.request(HOST+'/user/updateUserInfo',{},function(data){
+			Utils.request(HOST+'/user/updateUserInfo',{
+				nickName:this.userInfo.nickName
+			},function(data){
 				console.log('request success and end.');
 			},function(error){
 				console.log(error);
 			},this);
+
 			return;
 			request(HOST+'/user/updateUserInfo',{
 			    account: this.userInfo.account,
