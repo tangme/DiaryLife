@@ -23,14 +23,6 @@ import * as Utils from '@/assets/js/Utils';
 export default{
 	created(){
 		
-		return;
-		Axios.post(HOST+'/user/updateUserInfo',{})
-		.then(res => {
-			console.log(res);
-		})
-		.catch(function (error) {
-		    console.log(error);
-		});
 	},
 	components:{
 		tanglvinput
@@ -46,25 +38,17 @@ export default{
 		}
 	},
 	methods:{
-		/*更新数据*/
+		/**
+		 * [updateData 更新数据]
+		 * @author tanglv 2018-08-08
+		 */
 		updateData(){
 			Utils.request(HOST+'/user/updateUserInfo',{
 				nickName:this.userInfo.nickName
 			},function(data){
-				console.log('request success and end.');
+				console.log(data);
 			},function(error){
 				console.log(error);
-			},this);
-
-			return;
-			request(HOST+'/user/updateUserInfo',{
-			    account: this.userInfo.account,
-			    nickName: this.userInfo.nickName
-			},function(data){
-				console.log("--------------");
-				console.log(data);
-			},function(data){
-
 			},this);
 		}
 	}

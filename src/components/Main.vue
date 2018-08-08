@@ -41,7 +41,7 @@ export default{
 	},
 	computed:{
 		userName(){
-			return this.userInfo.nickName || this.userInfo.account || this.userInfo.email || this.userInfo.email;
+			return this.userInfo.nickname || this.userInfo.account || this.userInfo.email || this.userInfo.email;
 		}
 	},
 	methods:{
@@ -50,9 +50,7 @@ export default{
 			this.$refs['test'].style.display = (flag=='block'?'none':'block');
 		},
 		loginOut(){
-			this.$store.commit('logout');
-			sessionStorage.clear();
-			this.$router.push({name:'login'});
+			this.$store.dispatch("logout");
 		}
 	}
 }	
