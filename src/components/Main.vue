@@ -33,6 +33,7 @@
 export default{
 	created(){
 		this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'));
+		this.$ws.init(this.userInfo);
 	},
 	data(){
 		return{
