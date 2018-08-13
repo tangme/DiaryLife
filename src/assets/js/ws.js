@@ -14,11 +14,10 @@ const ws = {
         ws1 = new WebSocket(`${HOST_WS}/notification?socketid=${account||email||phone}`);
         
         ws1.onopen = function() {
-            console.log('已经成功建立WS连接！！！');
+            console.log('WebSocket connect success.');
         }
         ws1.onclose = function() {
-            console.log("---");
-            console.log('closed');
+            console.log('WebSocket closed.');
         }
         ws1.onerror = function(err) {
             console.error("err:", err);
@@ -46,7 +45,5 @@ const ws = {
         }
     }
 }
-/*window.onload = function() {
-  ws.init();
-}*/
+
 export default ws;

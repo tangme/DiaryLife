@@ -44,7 +44,10 @@ export default{
 		 */
 		updateData(){
 			Utils.request(HOST+'/user/updateUserInfo',{
-				nickName:this.userInfo.nickName
+				account:this.userInfo.account,
+				nickName:this.userInfo.nickName,
+				phone:this.userInfo.phone,
+				email:this.userInfo.email,
 			},function(data){
 				console.log(data);
 			},function(error){

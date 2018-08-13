@@ -5,7 +5,7 @@
         <div class="todoList_div">
             <ul class="todoList_ul">
                 <li class="todoList_li" v-for="(item,index) in showList" @click="showItem(item)">
-                    {{item}}
+                    {{item.content}}
                     <span class="todoList_span" @click="delItem(index)">x</span>
                 </li>
             </ul>
@@ -15,13 +15,16 @@
 </template>
 <script>
 import Cookies from 'js-cookie';
+import {HOST} from '@/assets/config';
+import * as Utils from '@/assets/js/Utils';
+
 export default {
-    name: 'HelloWorld',
     mounted(){
         console.log(Cookies.get('userInfo'));
         if(!!sessionStorage.getItem('todoList')){
             this.showList = JSON.parse(sessionStorage.getItem('todoList'))
         }
+        this.queryData();
     },
     data() {
         return {
@@ -30,7 +33,62 @@ export default {
         }
     },
     methods:{
+        /**
+         * [queryData description]
+         * @author tanglv 2018-08-13
+         */
+        queryData(){
+            let $this = this;
+            Utils.request(HOST+'/todo/queryTodo',null,function(data){
+                console.log(data);
+                $this.showList = data.data;
+            },function(error){
+                console.log(error);
+            },this);
+        },
+        /**
+         * [addData description]
+         * @author tanglv 2018-08-13
+         */
+        addData(data){
+            Utils.request(HOST+'/todo/addTodo',{
+                content:data,
+            },function(data){
+                console.log(data);
+            },function(error){
+                console.log(error);
+            },this);
+        },
+        /**
+         * [updateData description]
+         * @author tanglv 2018-08-13
+         */
+        updateData(){
+            Utils.request(HOST+'/todo/updateTodo',{
+                tid:'',
+                content:'',
+            },function(data){
+                console.log(data);
+            },function(error){
+                console.log(error);
+            },this);
+        },
+        /**
+         * [deleteData description]
+         * @author tanglv 2018-08-13
+         */
+        deleteData(tid,callback){
+            Utils.request(HOST+'/todo/deleteTodo',{
+                tid:tid,
+            },function(data){
+                console.log(data);
+                !!callback && callback();
+            },function(error){
+                console.log(error);
+            },this);
+        },
         saveInfo(){
+            this.addData(this.inputData);
             this.showList.push(this.inputData);
             let tmpData;
             if(!!sessionStorage.getItem('todoList')){
@@ -49,7 +107,8 @@ export default {
         },
         delItem(index){//删除所选日迹
             console.log(index);
-            this.showList.splice(index,1);
+            this.deleteData(this.showList[index].tid,()=>{this.showList.splice(index,1)});
+            
         }
     }
 }
