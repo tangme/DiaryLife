@@ -9,6 +9,19 @@
 			<tanglvinput label="绑定手机" placeholder="手机" v-model="userInfo.phone"/>
 			<br>
 			<tanglvinput label="绑定邮箱" placeholder="邮箱" v-model="userInfo.email"/>
+			<br>
+			<form name="uploadForm" 
+			    id="uploadForm" 
+			    method="post" 
+			    enctype="multipart/form-data" 
+			    :action="uploadUrl" 
+			    target="uploadFrame">
+			    <p style="margin:10px 0;">上传图片:
+			        <input type="text" name="name" value="">
+			        <input type="file" name="imageFile" multiple="multiple"/>
+			        <input type="submit" id="fileSubmit" value="上传" />
+			    </p>
+			</form>
 			<button @click="updateData">保存</button>
 		</div>
 	</div>
@@ -29,6 +42,7 @@ export default{
 	},
 	data(){
 		return{
+			uploadUrl:`${HOST}/uploads`,
 			userInfo:{
 				account:this.$store.state.user.account,
 				nickName:this.$store.state.user.nickName,

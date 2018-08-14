@@ -23,7 +23,8 @@ const ws = {
             console.error("err:", err);
         }
         ws1.onmessage = function(evt) {
-            console.log("当前回调函数个数" + bizArr.length, evt.data);
+            console.log("当前回调函数个数" + bizArr.length);
+            console.log(evt.data);
             /*let data = JSON.parse(evt.data);
             for (let i = 0; i < bizArr.length; i++) {
               let biz = bizArr[i];

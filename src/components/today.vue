@@ -20,10 +20,10 @@ import * as Utils from '@/assets/js/Utils';
 
 export default {
     mounted(){
-        console.log(Cookies.get('userInfo'));
+        /*console.log(Cookies.get('userInfo'));
         if(!!sessionStorage.getItem('todoList')){
             this.showList = JSON.parse(sessionStorage.getItem('todoList'))
-        }
+        }*/
         this.queryData();
     },
     data() {
@@ -50,11 +50,14 @@ export default {
          * [addData description]
          * @author tanglv 2018-08-13
          */
-        addData(data){
+        addData(data,flag_index){
+            let $this = this;
             Utils.request(HOST+'/todo/addTodo',{
                 content:data,
             },function(data){
-                console.log(data);
+                let tmpData = {'tid':data.data.data.tid,'content':$this.showList[flag_index].content}
+                console.log(tmpData);
+                $this.$set($this.showList,flag_index,tmpData);
             },function(error){
                 console.log(error);
             },this);
@@ -88,9 +91,10 @@ export default {
             },this);
         },
         saveInfo(){
-            this.addData(this.inputData);
-            this.showList.push(this.inputData);
-            let tmpData;
+            let flag_index = this.showList.length;
+            this.addData(this.inputData,flag_index);
+            this.showList.push({'tid':null,'content':this.inputData});
+            /*let tmpData;
             if(!!sessionStorage.getItem('todoList')){
                 tmpData = JSON.parse(sessionStorage.getItem('todoList'));
                 tmpData.push(this.inputData);
@@ -98,8 +102,7 @@ export default {
             }else{
                 sessionStorage.setItem('todoList',JSON.stringify(new Array(this.inputData)));
             }
-            
-            console.log(JSON.parse(sessionStorage.getItem('todoList')));
+            console.log(JSON.parse(sessionStorage.getItem('todoList')));*/
             this.inputData = "";
         },
         showItem(info){//显示所选日迹
