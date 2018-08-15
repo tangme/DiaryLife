@@ -1,31 +1,71 @@
-.login{
-	position: relative;
-	display: flex;
-	justify-content:center;
-	align-items:center;
-	/* width: 100%;
+.login {
+    position: relative;
+    display: flex;
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: -20%;
+    /* width: 100%;
 	height: 100%;
 	background: url('http://thepatternlibrary.com/img/aq.jpg') repeat; 
     */
-	&-panel{
-		width: 300px;
-		box-shadow: 0 0 15px;
-		border-radius:5px;
-		background: #fff;
-		hr{
-			width: 90%;
-			height:1px;
-			border:none;
-			border-top:1px ridge #ccc;
-		}
-		&-title{
-			font-size: 1.5rem;
-			margin:10px auto;
-		}
-		&-formCom{
-			margin:10px auto;
-			padding: 5px;
-			&-input{
+    &-panel {
+    	padding: 30px 0;
+    	width: 100%;
+        box-shadow: 0 0 3px #fff;
+        // border-radius: 5px;
+        background-color: rgba(255, 255, 255, .3);
+        hr {
+            width: 90%;
+            height: 1px;
+            border: none;
+            border-top: 1px ridge #ccc;
+        }
+        &-title {
+            color: #fff;
+            // font-size: 1.5rem;
+            // margin: 10px auto;
+            font-size: 40px;
+			font-weight: 200;
+        }
+        &-formCom {
+            margin: 10px auto;
+            padding: 5px;
+            &-input {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                outline: 0;
+                border: 1px solid rgba(255, 255, 255, 0.4);
+                background-color: rgba(255, 255, 255, 0.2);
+                width: 250px;
+                border-radius: 3px;
+                padding: 10px 15px;
+                margin: 0 auto 10px auto;
+                display: block;
+                text-align: center;
+                font-size: 18px;
+                color: white;
+                -webkit-transition-duration: 0.25s;
+                transition-duration: 0.25s;
+                font-weight: 300;
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.4);
+                }
+                &:focus {
+                    background-color: rgb(255, 255, 255);
+                    width: 300px;
+                    color: #53e3a6;
+                }
+                &::-webkit-input-placeholder {
+                    /* WebKit browsers */
+                    font-family: 'Source Sans Pro', sans-serif;
+                    color: white;
+                    font-weight: 300;
+                }
+            }
+            /* &-input{
 				box-sizing: border-box;
 				display: inline-block;
 				width:90%;
@@ -46,17 +86,17 @@
 				    outline: 0;
 				    box-shadow: 0 0 0 2px rgba(45,140,240,.2)
 				}
-			}
-		}
-		&-unLogin{
-			text-align: left;
-    		text-indent: 20px;
-		}
-		&-btnGroup{
-			margin:10px auto;
-		}
-		&-btn{
-			display:inline-block;
+			} */
+        }
+        &-unLogin {
+            text-align: left;
+            text-indent: 20px;
+        }
+        &-btnGroup {
+            margin: 10px auto;
+        }
+        &-btn {
+            /* display:inline-block;
 			width: 45%;
 			padding: 8px 0;
 			margin: 5px auto;
@@ -66,7 +106,25 @@
 			transition: color .2s linear,background-color .2s linear,border .2s linear,box-shadow .2s linear;
 			&:hover{
 				background-color:#57a3f3;
-			}
-		}
-	}
+			} */
+			display:inline-block;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            outline: 0;
+            background-color: white;
+            border: 0;
+            padding: 10px 15px;
+            color: #53e3a6;
+            border-radius: 3px;
+            width: 110px;
+            cursor: pointer;
+            font-size: 18px;
+            -webkit-transition-duration: 0.25s;
+            transition-duration: 0.25s;
+            &:hover{
+            	background-color: #f5f7f9;
+            }
+        }
+    }
 }

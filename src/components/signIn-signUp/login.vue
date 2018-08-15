@@ -2,18 +2,17 @@
 	<div class="login" >
 		<div class="login-panel" @keydown.enter="login">
 			<div class="login-panel-title">用户登录</div>
-			<hr>
-			<div class="login-panel-formCom">
-				<input type="text" v-model.trim="account" class="login-panel-formCom-input" placeholder="登录帐号、邮箱帐号或手机号">
-			</div>
-			<div class="login-panel-formCom">
+			<br>
+			<!-- <div class="login-panel-formCom"> -->
+				<input type="text" v-model.trim="account" class="login-panel-formCom-input" placeholder="帐号、邮箱或手机">
+			<!-- </div> -->
+			<!-- <div class="login-panel-formCom"> -->
 				<input type="password" v-model.trim="pwd" class="login-panel-formCom-input" placeholder="密码">
-			</div>
-			<div class="login-panel-unLogin">
+			<!-- </div> -->
+			<!-- <div class="login-panel-unLogin">
 				<input type="checkbox" id="un-login" v-model="unLogin">
 				<label for="un-login">三天免登录</label>
-			</div>
-			<hr>
+			</div> -->
 			<div class="login-panel-btnGroup">
 				<div class="login-panel-btn" @click="login">登录</div>
 				<div class="login-panel-btn" @click="gotoRegister">注册</div>
