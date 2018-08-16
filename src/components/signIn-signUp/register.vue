@@ -8,8 +8,14 @@
 				账号注册
 				<span>已有账号，<a @click="$router.push({name:'login'})">立即登录</a> </span>
 			</h1>
-			<hr>
-			<tanglvinput type="text" label='电子邮箱 ' placeholder="电子邮箱" v-model="registerForm.email"></tanglvinput>
+			<br>
+			<input type="text" v-model.trim="registerForm.email" class="login-panel-formCom-input" placeholder="电子邮箱">
+			<input type="text" v-model.trim="registerForm.phone" class="login-panel-formCom-input" placeholder="电话号码">
+			<input type="text" v-model.trim="registerForm.nickname" class="login-panel-formCom-input" placeholder="用户昵称">
+			<input type="password" v-model.trim="registerForm.pwd" class="login-panel-formCom-input" placeholder="登录密码">
+			<input type="password" v-model.trim="registerForm.comfirmPwd" class="login-panel-formCom-input" placeholder="确认密码">
+
+			<!-- <tanglvinput type="text" label='电子邮箱 ' placeholder="电子邮箱" v-model="registerForm.email"></tanglvinput>
 			<br>
 			<tanglvinput type="text" label='电话号码 ' placeholder="电话号码" v-model="registerForm.phone"></tanglvinput>
 			<br>
@@ -17,7 +23,7 @@
 			<br>
 			<tanglvinput type="text" label='密码 ' placeholder="密码" v-model="registerForm.pwd"></tanglvinput>
 			<br>
-			<tanglvinput type="text" label='确认密码 ' placeholder="确认密码" v-model="registerForm.comfirmPwd"></tanglvinput>
+			<tanglvinput type="text" label='确认密码 ' placeholder="确认密码" v-model="registerForm.comfirmPwd"></tanglvinput> -->
 			<!-- <div class="register-panel-row">
 				<div class="animated" v-bind:class="{ fadeInUp: registerForm.email,slideOutLeft: !registerForm.email}"  v-bind:style="{ display: emailDisplay }">
 					<span>电子邮箱：</span>
@@ -50,15 +56,12 @@
 				</div>
 				<input type="password" placeholder="请确认密码" v-model="registerForm.comfirmPwd">
 			</div> -->
-			<hr>
 			<button class="register-panel-button" @click="register">注册</button>
 			
 		</div>
 	</div>
 </template>
 <script>
-import Axios from 'axios';
-import animate from 'animate.css';
 import {request} from '@/assets/js/Utils';
 import _ from 'lodash';
 import tanglvinput from '@/components/input/input';
@@ -68,9 +71,7 @@ export default{
 	components:{
 		tanglvinput
 	},
-	watch:{
-		
-	},
+	watch:{},
 	data(){
 		return{
 			registerForm:{
@@ -137,6 +138,10 @@ export default{
 		}
 	},
 	methods:{
+		/**
+		 * [register 注册]
+		 * @author tanglv 2018-08-16
+		 */
 		register(){
 			request(HOST+'/server/register',this.registerForm,function(data){
 				alert(data.data.msg);
