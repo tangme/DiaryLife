@@ -4,10 +4,10 @@
 <template>
 	<div class="out-div">
 		<div class="register-panel">
-			<h1>
-				账号注册
+			<div class="register-panel-title">
+				<span>账号注册</span>
 				<span>已有账号，<a @click="$router.push({name:'login'})">立即登录</a> </span>
-			</h1>
+			</div>
 			<br>
 			<input type="text" v-model.trim="registerForm.email" class="login-panel-formCom-input" placeholder="电子邮箱">
 			<input type="text" v-model.trim="registerForm.phone" class="login-panel-formCom-input" placeholder="电话号码">

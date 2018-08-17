@@ -14,20 +14,29 @@
     box-shadow: 0 0 3px #fff;
     justify-content: center;
     align-items: center;
-    h1 {
-        position: relative;
+    &-title {
+        display: flex;
+        justify-content:space-between;
+        align-items:baseline;
+        width: 280px;
+        margin: auto;
+        /* position: relative;
         text-align: left;
         text-indent: 10px;
         width: 300px;
         margin: auto;
         color: #ffffff;
         font-size: 36px;
-        font-weight: 200;
-        span {
-            position: absolute;
-            right: 12px;
-            bottom: 0;
+        font-weight: 200; */
+        span:first-child{
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: 200;
+        }
+        span:last-child {
+            color: #ffffff;
             font-size: 14px;
+            font-weight: 200;
             a {
                 cursor: pointer;
                 text-decoration: underline;
