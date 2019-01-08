@@ -31,7 +31,8 @@ import {
 import {
     HOST
 } from '@/assets/config';
-import * as Utils from '@/assets/js/Utils';
+// import * as Utils from '@/assets/js/Utils';
+import {sendRequest} from '@/assets/js/Utils';
 
 export default {
     data() {
@@ -54,21 +55,22 @@ export default {
                 return;
             }
             let $this = this;
-            Utils.request(HOST + '/server/login', {
+            sendRequest(HOST + '/server/login', {
                 account: this.account,
                 pwd: this.pwd
-            }, function(data) {
-                alert(data.data.msg);
-                if (data.data.code == 1) {
-                    console.log(data.data);
-                    $this.$store.commit('initUserInfo', data.data.userObj)
+            }).then(res=>{
+                alert(res.data.msg);
+                if (res.data.code == 1) {
+                    console.log(res.data);
+                    $this.$store.commit('initUserInfo', res.data.userObj)
                     $this.$router.push({
                         name: 'home_index'
                     });
                 }
-            }, function(error) {
-                console.log(error);
-            }, this);
+            }).catch(err=>{
+                console.warn('err:',err);
+            });
+
             return;
             if (this.unLogin) {
                 var inFifteenMinutes = new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000);

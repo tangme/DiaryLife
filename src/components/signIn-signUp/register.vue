@@ -62,7 +62,7 @@
 	</div>
 </template>
 <script>
-import {request} from '@/assets/js/Utils';
+import {sendRequest} from '@/assets/js/Utils';
 import _ from 'lodash';
 import tanglvinput from '@/components/input/input';
 import {HOST} from '@/assets/config';
@@ -143,8 +143,8 @@ export default{
 		 * @author tanglv 2018-08-16
 		 */
 		register(){
-			request(HOST+'/server/register',this.registerForm,function(data){
-				alert(data.data.msg);
+			sendRequest(HOST+'/server/register',this.registerForm).then(res=>{
+				alert(res.data.msg);
 			});
 		},
 		hello:_.debounce(function () {

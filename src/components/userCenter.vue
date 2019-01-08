@@ -29,9 +29,9 @@
 <script>
 import tanglvinput from '@/components/input/input';	
 import Axios from 'axios';
-import {request} from '@/assets/js/Utils';
+import request from '@/assets/js/Utils';
+import {sendRequest} from '@/assets/js/Utils';
 import {HOST} from '@/assets/config';
-import * as Utils from '@/assets/js/Utils';
 
 export default{
 	created(){
@@ -57,16 +57,14 @@ export default{
 		 * @author tanglv 2018-08-08
 		 */
 		updateData(){
-			Utils.request(HOST+'/user/updateUserInfo',{
+			sendRequest(HOST+'/user/updateUserInfo',{
 				account:this.userInfo.account,
 				nickName:this.userInfo.nickName,
 				phone:this.userInfo.phone,
 				email:this.userInfo.email,
-			},function(data){
-				console.log(data);
-			},function(error){
-				console.log(error);
-			},this);
+			}).then(res=>{
+				console.log(res);
+			});
 		}
 	}
 }	

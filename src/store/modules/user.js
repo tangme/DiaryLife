@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import * as Utils from '@/assets/js/Utils';
+import {sendRequest} from '@/assets/js/Utils';
 import {HOST} from '@/assets/config';
 import {router} from '@/router/index.js';
 
@@ -36,9 +36,12 @@ const user = {
 		 */
 		logout({ state, commit, rootState }){
 			router.push({name:'login'});
-			Utils.request(HOST+'/server/logout',null,function(data){
+			sendRequest(HOST+'/server/logout',null).then(res=>{
 				Cookies.remove('connect.sid');
-			},function(data){});
+			}).catch(err=>{
+				console.warn('err:',err);
+			});
+
 			Cookies.remove('userInfo');
 			window.sessionStorage.clear();
 		}

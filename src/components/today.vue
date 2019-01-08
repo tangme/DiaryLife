@@ -16,7 +16,7 @@
 <script>
 import Cookies from 'js-cookie';
 import {HOST} from '@/assets/config';
-import * as Utils from '@/assets/js/Utils';
+import {sendRequest} from '@/assets/js/Utils';
 
 export default {
     mounted(){
@@ -39,12 +39,11 @@ export default {
          */
         queryData(){
             let $this = this;
-            Utils.request(HOST+'/todo/queryTodo',null,function(data){
-                console.log(data);
-                $this.showList = data.data;
-            },function(error){
-                console.log(error);
-            },this);
+            sendRequest(HOST+'/todo/queryTodo',null).then(res=>{
+                $this.showList = res.data;
+            }).catch(err=>{
+                console.warn('err:',err);
+            });
         },
         /**
          * [addData description]

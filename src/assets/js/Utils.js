@@ -1,4 +1,12 @@
 import axios from 'axios';
+
+export function sendRequest(url,params){
+	return axios.post(url,params,{
+		withCredentials:true
+	});
+}
+
+
 /**
  * [request 请求方法]
  * @author tanglv 2018-07-13
@@ -8,7 +16,7 @@ import axios from 'axios';
  * @param  {[type]} failFun    [失败回调函数]
  * @param  {[type]} $this      [组件上下文]
  */
-export function request(url,params,successFun,failFun,$this){
+function request(url,params,successFun,failFun,$this){
 	axios.post(url,params,{
 		headers:{
 		},
@@ -38,3 +46,7 @@ export function request(url,params,successFun,failFun,$this){
 	    failFun();
 	});
 };
+
+export default{
+	request
+}
