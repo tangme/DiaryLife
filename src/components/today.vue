@@ -50,16 +50,15 @@ export default {
          * @author tanglv 2018-08-13
          */
         addData(data,flag_index){
-            let $this = this;
-            Utils.request(HOST+'/todo/addTodo',{
+            sendRequest(HOST+'/todo/addTodo',{
                 content:data,
-            },function(data){
-                let tmpData = {'tid':data.data.data.tid,'content':$this.showList[flag_index].content}
+            }).then(res=>{
+                let tmpData = {'tid':res.data.data.tid,'content':this.showList[flag_index].content};
                 console.log(tmpData);
-                $this.$set($this.showList,flag_index,tmpData);
-            },function(error){
-                console.log(error);
-            },this);
+                this.$set(this.showList,flag_index,tmpData);
+            }).catch(err=>{
+                console.warn('err:',err);
+            });
         },
         /**
          * [updateData description]

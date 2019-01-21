@@ -47,11 +47,23 @@ export default{
 	},
 	methods:{
 		showUserSetting(event){
+			console.log('event:',event.stopPropagation());
 			let flag = this.$refs['test'].style.display;
-			this.$refs['test'].style.display = (flag=='block'?'none':'block');
+			if(flag=='block'){
+				this.$refs['test'].style.display = 'none';
+				document.removeEventListener('click',this.hideUserSetting);
+			}else{
+				this.$refs['test'].style.display = 'block';
+				document.addEventListener('click',this.hideUserSetting);
+			}
 		},
 		loginOut(){
 			this.$store.dispatch("logout");
+		},
+		hideUserSetting(){
+			console.log('in the hideUserSetting');
+			this.$refs['test'].style.display = 'none';
+			document.removeEventListener('click',this.hideUserSetting);
 		}
 	}
 }	
