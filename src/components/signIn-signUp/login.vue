@@ -20,6 +20,10 @@
                 <input type="button" class="login-panel-btn" @click="gotoRegister" value="注册"></input>
                 <!-- <div class="login-panel-btn" @click="gotoRegister">注册</div> -->
             </div>
+            <expand-width-input>
+                <template v-slot:prefix>123*</template>
+                <template v-slot:suffix>456*</template>
+            </expand-width-input>
         </div>
     </div>
 </template>
@@ -34,7 +38,12 @@ import {
 // import * as Utils from '@/assets/js/Utils';
 import {sendRequest} from '@/assets/js/Utils';
 
+import expandWidthInput from "@/components/expand-width-input"
+
 export default {
+    components:{
+        expandWidthInput
+    },
     data() {
         return {
             account: '',
@@ -55,7 +64,8 @@ export default {
                 return;
             }
             let $this = this;
-            sendRequest(HOST + '/server/login', {
+            // sendRequest(HOST + '/server/login', {
+            sendRequest('/server/login', {
                 account: this.account,
                 pwd: this.pwd
             }).then(res=>{
