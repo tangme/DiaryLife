@@ -3,25 +3,25 @@
 </style>
 <template>
     <div class="wrapper">
-    	<div class="input-label" >
+		<div class="input-label" >
             {{label}}
         </div>
         <div class="input-div" :class="{withCon:currentValue}">
             <input class="input"
-        	:type="type" 
-        	:placeholder="placeholder" 
-        	:value="currentValue"
-        	@input="handleInput">
+			:type="type" 
+			:placeholder="placeholder" 
+			:value="currentValue"
+			@input="handleInput">
         </div>
         
         <!-- <div class="animated" :class="{slideInRight:currentValue,zoomOut:!currentValue}" :style="{display:!currentValue?'none':'table-cell'}">
             <span>{{label}}</span>
         </div>
         <input 
-        	:type="type" 
-        	:placeholder="placeholder" 
-        	:value="currentValue"
-        	@input="handleInput"> -->
+			:type="type" 
+			:placeholder="placeholder" 
+			:value="currentValue"
+			@input="handleInput"> -->
     </div>
 </template>
 <script>
@@ -31,23 +31,23 @@ export default {
 	props:{
 		type:{
 			validator(value){
-				return ['text', 'textarea', 'password', 'url', 'email', 'date'].some(function(item){
+				return ["text", "textarea", "password", "url", "email", "date"].some(function(item){
 					return item == value;
-				})
+				});
 			},
-			default:'text'
+			default:"text"
 		},
 		value:{
 			type:String,
-			default:''
+			default:""
 		},
 		placeholder:{
 			type:String,
-			default:''
+			default:""
 		},
 		label:{
 			type:String,
-			default:''
+			default:""
 		}
 	},
 	data(){
@@ -62,14 +62,14 @@ export default {
 		},
 		handleInput(event){
 			let value = event.target.value;
-			this.$emit('input', value);
-            this.setCurrentValue(value);
+			this.$emit("input", value);
+			this.setCurrentValue(value);
 		}
 	},
 	watch: {
-        value (val) {
-        	this.setCurrentValue(val);
-        }
-    }
-}
+		value (val) {
+			this.setCurrentValue(val);
+		}
+	}
+};
 </script>

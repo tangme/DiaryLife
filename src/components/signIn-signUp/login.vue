@@ -16,8 +16,8 @@
 				<label for="un-login">三天免登录</label>
 			</div> -->
             <div class="login-panel-btnGroup">
-                <input type="button" class="login-panel-btn" @click="login" value="登录" @keydown.enter="login"></input>
-                <input type="button" class="login-panel-btn" @click="gotoRegister" value="注册"></input>
+                <input type="button" class="login-panel-btn" @click="login" value="登录" @keydown.enter="login" />
+                <input type="button" class="login-panel-btn" @click="gotoRegister" value="注册"/>
                 <!-- <div class="login-panel-btn" @click="gotoRegister">注册</div> -->
             </div>
             <expand-width-input>
@@ -28,81 +28,81 @@
     </div>
 </template>
 <script>
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import {
-    Showbo
-} from '@/assets/showBo/showBo';
+	Showbo
+} from "@/assets/showBo/showBo";
 import {
-    HOST
-} from '@/assets/config';
+	HOST
+} from "@/assets/config";
 // import * as Utils from '@/assets/js/Utils';
-import {sendRequest} from '@/assets/js/Utils';
+import {sendRequest} from "@/assets/js/Utils";
 
-import expandWidthInput from "@/components/expand-width-input"
+import expandWidthInput from "@/components/expand-width-input";
 
 export default {
-    components:{
-        expandWidthInput
-    },
-    data() {
-        return {
-            account: '',
-            pwd: '',
-            unLogin: false
-        };
-    },
-    methods: {
-        init() {
-            let tmpAccount = Cookies.get('account');
-            if (!!tmpAccount) {
-                this.account = tmpAccount;
-            }
-        },
-        login() {
-            if (!(!!this.account && !!this.pwd)) {
-                alert("请输入帐号与密码进行登录");
-                return;
-            }
-            let $this = this;
-            // sendRequest(HOST + '/server/login', {
-            sendRequest('/server/login', {
-                account: this.account,
-                pwd: this.pwd
-            }).then(res=>{
-                alert(res.data.msg);
-                if (res.data.code == 1) {
-                    console.log(res.data);
-                    $this.$store.commit('initUserInfo', res.data.userObj)
-                    $this.$router.push({
-                        name: 'home_index'
-                    });
-                }
-            }).catch(err=>{
-                console.warn('err:',err);
-            });
+	components:{
+		expandWidthInput
+	},
+	data() {
+		return {
+			account: "",
+			pwd: "",
+			unLogin: false
+		};
+	},
+	methods: {
+		init() {
+			let tmpAccount = Cookies.get("account");
+			if (tmpAccount) {
+				this.account = tmpAccount;
+			}
+		},
+		login() {
+			if (!(!!this.account && !!this.pwd)) {
+				alert("请输入帐号与密码进行登录");
+				return;
+			}
+			let $this = this;
+			// sendRequest(HOST + '/server/login', {
+			sendRequest("/server/login", {
+				account: this.account,
+				pwd: this.pwd
+			}).then(res=>{
+				alert(res.data.msg);
+				if (res.data.code == 1) {
+					console.log(res.data);
+					$this.$store.commit("initUserInfo", res.data.userObj);
+					$this.$router.push({
+						name: "home_index"
+					});
+				}
+			}).catch(err=>{
+				console.warn("err:",err);
+			});
 
-            return;
-            if (this.unLogin) {
-                var inFifteenMinutes = new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000);
-                Cookies.set('account', this.account, {
-                    expires: inFifteenMinutes
-                });
-            } else {
-                Cookies.set('account', this.account);
-            }
-        },
-        /**
+			return;
+			if (this.unLogin) {
+				var inFifteenMinutes = new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000);
+				Cookies.set("account", this.account, {
+					expires: inFifteenMinutes
+				});
+			} else {
+				Cookies.set("account", this.account);
+			}
+		},
+		/**
          * [gotoRegister 跳转至注册页面]
          * @author tanglv 2018-08-16
          */
-        gotoRegister() {
-            this.$router.push({
-                name: 'register'
-            });
-        }
-    },
-    mounted() {
-        this.init();
-    }
-}
+		gotoRegister() {
+			this.$router.push({
+				name: "register"
+			});
+		}
+	},
+	mounted() {
+		this.init();
+	}
+};
 </script>
