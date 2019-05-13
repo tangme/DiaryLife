@@ -6,11 +6,15 @@
 </style> -->
 <style>
 .icon {
-  width: 1em;
-  height: 1em;
-  vertical-align: -0.15em;
-  fill: currentColor;
-  overflow: hidden;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+.icon-color {
+    color: #ffffff;
+    font-weight: bold;
 }
 </style>
 <template>
@@ -21,7 +25,7 @@
                 <expand-width-input placeholder="帐号、邮箱或手机" v-model.trim="form.account">
                     <template v-slot:prefix>
                         <div style="margin:0 1rem;">
-                            <icon-svg iconClass="login_user"/>
+                            <icon-svg iconClass="login_user" class="icon-color"/>
                         </div>
                     </template>
                 </expand-width-input>
@@ -30,7 +34,7 @@
                 <expand-width-input placeholder="密码" type="password" v-model.trim="form.pwd">
                     <template v-slot:prefix>
                         <div style="margin:0 1rem;">
-                            <icon-svg iconClass="pwd"/>
+                            <icon-svg iconClass="pwd" class="icon-color"/>
                         </div>
                     </template>
                 </expand-width-input>
@@ -87,17 +91,14 @@ export default {
 			}
 		},
 		login() {
-			console.log(this.form);
-			return;
-			if (!(!!this.account && !!this.pwd)) {
+			if (!(!!this.form.account && !!this.form.pwd)) {
 				alert("请输入帐号与密码进行登录");
 				return;
 			}
 			let $this = this;
-			// sendRequest(HOST + '/server/login', {
 			sendRequest("/server/login", {
-				account: this.account,
-				pwd: this.pwd
+				account: this.form.account,
+				pwd: this.form.pwd
 			})
 				.then(res => {
 					alert(res.data.msg);
@@ -113,17 +114,16 @@ export default {
 					console.warn("err:", err);
 				});
 
-			return;
-			if (this.unLogin) {
-				var inFifteenMinutes = new Date(
-					new Date().getTime() + 3 * 24 * 60 * 60 * 1000
-				);
-				Cookies.set("account", this.account, {
-					expires: inFifteenMinutes
-				});
-			} else {
-				Cookies.set("account", this.account);
-			}
+			/* if (this.unLogin) {
+                var inFifteenMinutes = new Date(
+                    new Date().getTime() + 3 * 24 * 60 * 60 * 1000
+                );
+                Cookies.set("account", this.account, {
+                    expires: inFifteenMinutes
+                });
+            } else {
+                Cookies.set("account", this.account);
+            } */
 		},
 		/**
          * [gotoRegister 跳转至注册页面]
