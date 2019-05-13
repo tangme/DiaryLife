@@ -1,33 +1,41 @@
 <style>
-    @import './expand-width-input.css'
+@import "./expand-width-input.css";
 </style>
 <template>
-    <div class="expand-width-input-wrapper" :class="{'expand-width-input-wrapper-onfocus':isFocus}">
-    	<div v-if="$slots.prefix" class="prefix-div">
-	        <slot name="prefix"></slot>
-    	</div>
-        <input type="text" @focus="handleFocus" @blur="handleBlur">
+    <div class="expand-width-input-wrapper">
+        <div v-if="$slots.prefix" class="prefix-div">
+            <slot name="prefix"></slot>
+        </div>
+        <input v-bind="$attrs" :value='currentValue' @input="handleInput">
         <div v-if="$slots.suffix" class="suffix-div">
-	        <slot name="suffix"></slot>
+            <slot name="suffix"></slot>
         </div>
     </div>
 </template>
 <script>
 export default {
-    name: "expand-width-input",
-    data(){
-    	return {
-    		isFocus:false//文本框是否在焦点状态
-    	}
-    },
-    methods:{
-    	handleFocus(){
-    		this.isFocus = true;
-    	},
-    	handleBlur(){
-    		this.isFocus = false;
-    	}
-    }
-}
-
+	name: "expand-width-input",
+	props: {
+		value:[String],
+	},
+	data() {
+		return {
+			currentValue:this.value
+		};
+	},
+	watch:{
+		value(val){
+			this.setCurrentValue(val);
+		}
+	},
+	methods: {
+		handleInput(event){
+			this.$emit("input",event.target.value);
+		},
+		setCurrentValue(value){
+			if(value === this.currentValue)return;
+			this.currentValue = value;
+		}
+	}
+};
 </script>
