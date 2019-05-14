@@ -19,10 +19,10 @@
 </style>
 <template>
     <div class="login">
-        <div class="login-panel">
+        <div class="login-panel" @keyup.enter="login">
             <div class="login-panel-title">用户登录</div>
             <div style="margin:1rem auto;">
-                <expand-width-input placeholder="帐号、邮箱或手机" v-model.trim="form.account">
+                <expand-width-input placeholder="帐号、邮箱或手机" v-model.trim="form.account" ref="input-account">
                     <template v-slot:prefix>
                         <div style="margin:0 1rem;">
                             <icon-svg iconClass="login_user" class="icon-color"/>
@@ -47,14 +47,8 @@
 				<label for="un-login">三天免登录</label>
             </div>-->
             <div class="login-panel-btnGroup">
-                <input
-                    type="button"
-                    class="login-panel-btn"
-                    @click="login"
-                    value="登 录"
-                    @keydown.enter="login"
-                >
-                <input type="button" class="login-panel-btn" @click="gotoRegister" value="注 册">
+                <input type="button" class="login-panel-btn" @click="login" value="登 录">
+                <input type="button" class="login-panel-btn" @click="gotoRegister" @keyup.stop.enter="gotoRegister" value="注 册">
             </div>
         </div>
     </div>
@@ -72,14 +66,15 @@ export default {
 	components: {
 		expandWidthInput
 	},
+	mounted() {
+		this.init();
+	},
 	data() {
 		return {
 			form: {
 				account: "",
 				pwd: ""
 			},
-			account: "",
-			pwd: "",
 			unLogin: false
 		};
 	},
@@ -87,8 +82,11 @@ export default {
 		init() {
 			let tmpAccount = Cookies.get("account");
 			if (tmpAccount) {
-				this.account = tmpAccount;
+				this.form.account = tmpAccount;
 			}
+			this.$nextTick(()=>{
+				this.$refs["input-account"].$refs["input"].focus();
+			});
 		},
 		login() {
 			if (!(!!this.form.account && !!this.form.pwd)) {
@@ -118,11 +116,11 @@ export default {
                 var inFifteenMinutes = new Date(
                     new Date().getTime() + 3 * 24 * 60 * 60 * 1000
                 );
-                Cookies.set("account", this.account, {
+                Cookies.set("account", this.form.account, {
                     expires: inFifteenMinutes
                 });
             } else {
-                Cookies.set("account", this.account);
+                Cookies.set("account", this.form.account);
             } */
 		},
 		/**
@@ -134,9 +132,6 @@ export default {
 				name: "register"
 			});
 		}
-	},
-	mounted() {
-		this.init();
 	}
 };
 </script>

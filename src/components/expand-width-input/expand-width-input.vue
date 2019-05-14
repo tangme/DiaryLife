@@ -6,7 +6,7 @@
         <div v-if="$slots.prefix" class="prefix-div">
             <slot name="prefix"></slot>
         </div>
-        <input v-bind="$attrs" :value='currentValue' @input="handleInput">
+        <input v-bind="$attrs" :value='currentValue' @input="handleInput" ref="input">
         <div v-if="$slots.suffix" class="suffix-div">
             <slot name="suffix"></slot>
         </div>
