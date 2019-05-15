@@ -1,14 +1,14 @@
-import Cookies from 'js-cookie';
-import {sendRequest} from '@/assets/js/Utils';
-import {HOST} from '@/assets/config';
-import {router} from '@/router/index.js';
+import Cookies from "js-cookie";
+import {sendRequest} from "@/assets/js/Utils";
+import {HOST} from "@/assets/config";
+import {router} from "@/router/index.js";
 
 const user = {
 	state:{
-		account:'',
-		phone:'',
-		email:'',
-		nickName:''
+		account:"",
+		phone:"",
+		email:"",
+		nickName:""
 	},
 	mutations:{
 		/**
@@ -21,9 +21,9 @@ const user = {
 			state.account = userInfo.account;
 			state.phone = userInfo.phone;
 			state.email = userInfo.email;
-			state.nickName = userInfo.nickName;
-			window.sessionStorage.setItem('userInfo',JSON.stringify(userInfo));
-			Cookies.set('userInfo',userInfo);
+			state.nickName = userInfo.nickname;
+			window.sessionStorage.setItem("userInfo",JSON.stringify(userInfo));
+			Cookies.set("userInfo",userInfo);
 		}
 	},
 	actions:{
@@ -35,14 +35,14 @@ const user = {
 		 * @param  {[type]} options.rootState [description]
 		 */
 		logout({ state, commit, rootState }){
-			router.push({name:'login'});
-			sendRequest(HOST+'/server/logout',null).then(res=>{
-				Cookies.remove('connect.sid');
+			router.push({name:"login"});
+			sendRequest(HOST+"/server/logout",null).then(res=>{
+				Cookies.remove("connect.sid");
 			}).catch(err=>{
-				console.warn('err:',err);
+				console.warn("err:",err);
 			});
 
-			Cookies.remove('userInfo');
+			Cookies.remove("userInfo");
 			window.sessionStorage.clear();
 		}
 	}
