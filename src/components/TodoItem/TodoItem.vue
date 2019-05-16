@@ -56,17 +56,30 @@
     outline: 0;
     box-shadow: 0 0 3px rgba(45,140,240,.8);
 }
+.focusBg{
+    background-color: bisque;
+}
 </style>
 
 <template>
-    <div>
-        <div class="item-display" :class="{displayNone:isEdit}" @click.stop="changeView('edit')">
+    <div ref="itemtodo" 
+        @dragstart="dragstart" 
+        @dragend="dragend" 
+        draggable="true" 
+        @dragover.prevent 
+        @dragenter.stop="dragenter" 
+        @dragleave.stop="dragleave"
+    >
+        <div class="item-display" :class="{displayNone:isEdit,focusBg}" @click.stop="changeView('edit')">
             <div class="item-show">{{data.content}}</div>
             <div class="item-edit">
                 <icon-svg iconClass="More"/>
                 <div class="item-more-edit">
                     <icon-svg iconClass="el-icon-delete" style="width:36px;" title="删除" @click="delItem(data.tid)"/>
-                    <icon-svg iconClass="sort" style="width:36px;" title="按住并拖动以排序" @click="handleSort"/>
+                    <icon-svg iconClass="sort" style="width:36px;" title="按住并拖动以排序" 
+                        @mousedown.stop.native="handleMouseDown" 
+                        @click.stop
+                    />
                 </div>
             </div>
         </div>
@@ -87,10 +100,33 @@ export default {
 	},
 	data(){
 		return{
-			isEdit:false
+			isEdit:false,
+			focusBg:false
 		};
 	},
 	methods:{
+		dragenter(){
+			this.focusBg = true;
+			console.log("...dragenter...");
+		},
+		dragleave(){
+			this.focusBg = false;
+			console.log("...dragleave...");
+		},
+		dragstart(){
+			console.log("dragstart...");
+		},
+		dragend(){
+			console.log("dragend...");
+			// this.$refs.itemtodo.removeAttribute("draggable");
+		},
+		handleDragStart(){
+			console.log("handleDragStart");
+		},
+		handleMouseDown(){
+			console.log("handleMouseDown");
+			// this.$refs.itemtodo.setAttribute("draggable",true);
+		},
 		changeView(editView){
 			if(editView==="edit"){//编辑视图
 				this.isEdit = true;
@@ -125,7 +161,8 @@ export default {
          * 排序
          */
 		handleSort(){
-			console.log("handleSort");
+			console.log(this.$refs.itemtodo);
+			this.$refs.itemtodo.setAttribute("draggable",true);
 		}
 	}
 };
