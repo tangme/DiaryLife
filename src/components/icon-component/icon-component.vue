@@ -1,7 +1,9 @@
 <template>
-    <svg class="icon" aria-hidden="true" @click="handleClick">
-        <use :xlink:href="iconName"></use>
-    </svg>
+    <div>
+        <svg class="icon" aria-hidden="true" @click="handleClick">
+            <use :xlink:href="iconName"></use>
+        </svg>
+    </div>
 </template>
 <script>
 export default {
@@ -17,9 +19,9 @@ export default {
 			return `#icon-${this.iconClass}`;
 		}
 	},
-	methods:{
-		handleClick(event){
-			this.$emit("click",event);
+	methods: {
+		handleClick(event) {
+			this.$emit("click", event);
 		}
 	}
 };
