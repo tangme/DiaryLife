@@ -37,15 +37,21 @@
             <input type="text" class="todoInput" ref="input" v-model="inputData" @keydown.enter="saveInfo" placeholder="要记录点什么呢~"/>
         </div>
         <todo-list :data="showList" class="custom-todo-list" @delSuccess="handleDelSuccess"></todo-list>
+		<hr>
+		<div>
+			<complete-list class="custom-todo-list"></complete-list>
+		</div>
     </div>
 </template>
 <script>
 import {sendRequest} from "@/assets/js/Utils";
 import TodoList from "@/components/TodoItem/TodoList";
+import CompleteList from "@/components/CompleteTodo/CompleteList";
 
 export default {
 	components:{
-		TodoList
+		TodoList,
+		CompleteList
 	},
 	mounted(){
 		this.$refs["input"].focus();

@@ -96,7 +96,7 @@
                 <icon-svg iconClass="More"/>
                 <div class="item-for-display-setting-toolsgroup">
                     <icon-svg iconClass="el-icon-delete" class="custom-icon-svg" title="删除" @click.stop="delItem(data.tid)"/>
-                    <icon-svg iconClass="finished-" class="custom-icon-svg" title="完成此项" @click.stop="handleItemDone"/>
+                    <icon-svg iconClass="finished-" class="custom-icon-svg" title="完成此项" @click.stop="handleItemDone(data.tid)"/>
                     <icon-svg iconClass="sort" class="custom-icon-svg" title="按住并拖动以排序"
                         @mousedown.stop.native="handleMouseDown"
                         @click.stop
@@ -126,8 +126,12 @@ export default {
 		};
 	},
 	methods:{
-		handleItemDone(){
-			console.log("handleItemDone");
+		handleItemDone(id){
+			sendRequest("/todo/finishedTodo",{
+				tid:id
+			}).then(res=>{
+				this.$emit("delSuccess");
+			});
 		},
 		handleDragover(){
 			this.focusBg = true;

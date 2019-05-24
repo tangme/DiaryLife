@@ -10,8 +10,10 @@ import ws from "@/assets/js/ws";
 import "@/assets/iconfont/iconfont.js";
 
 import IconSvg from "@/components/icon-component/icon-component";
+import $httpAxios from "@/assets/js/Utils";
 
 Object.defineProperty(Vue.prototype, "_", { value: _ });
+Object.defineProperty(Vue.prototype, "$httpAxios", { value: $httpAxios});
 
 Vue.config.productionTip = false;
 Vue.prototype.$ws=ws;
