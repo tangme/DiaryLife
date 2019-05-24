@@ -95,7 +95,7 @@
             <div class="item-for-display-setting">
                 <icon-svg iconClass="More"/>
                 <div class="item-for-display-setting-toolsgroup">
-                    <icon-svg iconClass="el-icon-delete" class="custom-icon-svg" title="删除" @click.stop="delItem(data.tid)"/>
+                    <icon-svg iconClass="el-icon-delete" class="custom-icon-svg" title="删除" @click.stop="handleDelItem(data.tid)"/>
                     <icon-svg iconClass="finished-" class="custom-icon-svg" title="完成此项" @click.stop="handleItemDone(data.tid)"/>
                     <icon-svg iconClass="sort" class="custom-icon-svg" title="按住并拖动以排序"
                         @mousedown.stop.native="handleMouseDown"
@@ -112,6 +112,7 @@
 
 <script>
 import {sendRequest} from "@/assets/js/Utils";
+import { delTodo,updateTodo } from "@/api/todo";
 export default {
 	name:"TodoItem",
 	props:{
@@ -161,21 +162,25 @@ export default {
 			}
 		},
 		handleUpdate(event){
-			sendRequest("/todo/updateTodo",{
+			updateTodo({
+				tid:this.data.tid,
+				content:event.target.value}).then(res=>{
+				this.isEdit = false;
+				this.$emit("delSuccess");
+			});
+			/* sendRequest("/todo/updateTodo",{
 				tid:this.data.tid,
 				content:event.target.value
 			}).then(res=>{
 				this.isEdit = false;
 				this.$emit("delSuccess");
-			});
+			}); */
 		},
 		/**
          * 删除todo项目
          */
-		delItem(id){
-			sendRequest("/todo/deleteTodo",{
-				tid:id,
-			}).then(res=>{
+		handleDelItem(id){
+			delTodo(id).then(res=>{
 				this.$emit("delSuccess",id);
 			});
 		},

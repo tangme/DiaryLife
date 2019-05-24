@@ -45,6 +45,7 @@
 </template>
 <script>
 import {sendRequest} from "@/assets/js/Utils";
+import {addTodo} from "@/api/todo";
 import TodoList from "@/components/TodoItem/TodoList";
 import CompleteList from "@/components/CompleteTodo/CompleteList";
 
@@ -80,25 +81,17 @@ export default {
 				console.warn("err:",err);
 			});
 		},
-		/**
-         * [addData description]
-         * @author tanglv 2018-08-13
-         */
-		addData(data,flag_index){
-			sendRequest("/todo/addTodo",{
-				content:data,
-			}).then(res=>{
-				let tmpData = {"tid":res.data.data.tid,"content":this.showList[flag_index].content};
-				console.log(tmpData);
+		saveInfo(){
+			let flag_index = this.showList.length;
+			addTodo(this.inputData).then(res=>{
+				let tmpData = {"tid":res.data.tid,"content":this.showList[flag_index].content};
 				this.$set(this.showList,flag_index,tmpData);
 			}).catch(err=>{
 				console.warn("err:",err);
 			});
-		},
-		saveInfo(){
-			let flag_index = this.showList.length;
-			this.addData(this.inputData,flag_index);
+
 			this.showList.push({"tid":null,"content":this.inputData});
+			this.inputData = "";
 			/*let tmpData;
             if(!!sessionStorage.getItem('todoList')){
                 tmpData = JSON.parse(sessionStorage.getItem('todoList'));
@@ -108,7 +101,7 @@ export default {
                 sessionStorage.setItem('todoList',JSON.stringify(new Array(this.inputData)));
             }
             console.log(JSON.parse(sessionStorage.getItem('todoList')));*/
-			this.inputData = "";
+			
 		},
 		handleDelSuccess(id){
 			this.queryData();
