@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {sendRequest} from "@/assets/js/Utils";
+import {fetchFinishedTodoList} from "@/api/todo";
 import CompleteItem from "@/components/CompleteTodo/CompleteItem";
 export default {
 	name:"CompleteList",
@@ -27,8 +27,8 @@ export default {
 			this.queryData();
 		},
 		queryData(){
-			sendRequest("/todo/queryFinishedTodo",null).then(res=>{
-				this.list = res.data;
+			fetchFinishedTodoList().then(res=>{
+				this.list = res;
 			}).catch(err=>{
 				console.warn("err:",err);
 			});

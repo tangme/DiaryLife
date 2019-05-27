@@ -112,7 +112,7 @@
 
 <script>
 import {sendRequest} from "@/assets/js/Utils";
-import { delTodo,updateTodo } from "@/api/todo";
+import { delTodo,updateTodo ,finishedTodo} from "@/api/todo";
 export default {
 	name:"TodoItem",
 	props:{
@@ -128,27 +128,18 @@ export default {
 	},
 	methods:{
 		handleItemDone(id){
-			sendRequest("/todo/finishedTodo",{
-				tid:id
-			}).then(res=>{
+			finishedTodo(id).then(res=>{
 				this.$emit("delSuccess");
 			});
 		},
 		handleDragover(){
 			this.focusBg = true;
 		},
-		dragstart(){
-			
-		},
 		handleDragend(){
 			this.focusBg = false;
 			this.$refs.itemtodo.removeAttribute("draggable");
 		},
-		handleDragStart(){
-			
-		},
 		handleMouseDown(){
-			
 			this.$refs.itemtodo.setAttribute("draggable",true);
 		},
 		changeView(editView){

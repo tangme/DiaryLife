@@ -45,7 +45,7 @@
 </template>
 <script>
 import {sendRequest} from "@/assets/js/Utils";
-import {addTodo} from "@/api/todo";
+import {addTodo,fetchTodoList} from "@/api/todo";
 import TodoList from "@/components/TodoItem/TodoList";
 import CompleteList from "@/components/CompleteTodo/CompleteList";
 
@@ -75,8 +75,8 @@ export default {
          */
 		queryData(){
 			let $this = this;
-			sendRequest("/todo/queryTodo",null).then(res=>{
-				$this.showList = res.data;
+			fetchTodoList().then(res=>{
+				$this.showList = res;
 			}).catch(err=>{
 				console.warn("err:",err);
 			});
