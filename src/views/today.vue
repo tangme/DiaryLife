@@ -44,7 +44,6 @@
     </div>
 </template>
 <script>
-import {sendRequest} from "@/assets/js/Utils";
 import {addTodo,fetchTodoList} from "@/api/todo";
 import TodoList from "@/components/TodoItem/TodoList";
 import CompleteList from "@/components/CompleteTodo/CompleteList";
@@ -103,7 +102,7 @@ export default {
             console.log(JSON.parse(sessionStorage.getItem('todoList')));*/
 			
 		},
-		handleDelSuccess(id){
+		handleDelSuccess(){
 			this.queryData();
 		}
 	}

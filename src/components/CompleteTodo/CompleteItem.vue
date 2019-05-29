@@ -49,9 +49,14 @@ export default {
 		}
 	},
 	methods:{
+		/**
+		 * 重置 已完成待办
+		 */
 		handleUndo(){
 			updateTodoToUndo(this.data.tid).then(res=>{
-				console.log(res);
+				if(res.code === 1){
+					this.$emit("afterUndo");
+				}
 			});
 		}
 	}

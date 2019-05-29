@@ -111,7 +111,6 @@
 </template>
 
 <script>
-import {sendRequest} from "@/assets/js/Utils";
 import { delTodo,updateTodo ,finishedTodo} from "@/api/todo";
 export default {
 	name:"TodoItem",
@@ -127,9 +126,37 @@ export default {
 		};
 	},
 	methods:{
+		/**
+         * 删除 待办项目
+         */
+		handleDelItem(id){
+			delTodo(id).then(res=>{
+				if(res.code === 1){
+					this.$emit("afterDelItem",id);
+				}
+			});
+		},
+		/**
+		 * 更新 待办项目
+		 */
+		handleUpdate(event){
+			updateTodo({
+				tid:this.data.tid,
+				content:event.target.value}).then(res=>{
+				this.isEdit = false;
+				if(res.code === 1){
+					this.$emit("afterUpdateItem");
+				}
+			});
+		},
+		/**
+		 * 完成 待办项目
+		 */
 		handleItemDone(id){
 			finishedTodo(id).then(res=>{
-				this.$emit("delSuccess");
+				if(res.code === 1){
+					this.$emit("afterFinishedItem");
+				}
 			});
 		},
 		handleDragover(){
@@ -151,29 +178,6 @@ export default {
 			}else{//查看视图
 				this.isEdit = false;
 			}
-		},
-		handleUpdate(event){
-			updateTodo({
-				tid:this.data.tid,
-				content:event.target.value}).then(res=>{
-				this.isEdit = false;
-				this.$emit("delSuccess");
-			});
-			/* sendRequest("/todo/updateTodo",{
-				tid:this.data.tid,
-				content:event.target.value
-			}).then(res=>{
-				this.isEdit = false;
-				this.$emit("delSuccess");
-			}); */
-		},
-		/**
-         * 删除todo项目
-         */
-		handleDelItem(id){
-			delTodo(id).then(res=>{
-				this.$emit("delSuccess",id);
-			});
 		},
 		/**
          * 排序

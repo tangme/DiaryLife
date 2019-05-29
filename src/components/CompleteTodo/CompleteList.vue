@@ -1,7 +1,6 @@
 <template>
     <div>
-		completelist
-		<complete-item v-for="item in list" :key="item.tid" :data="item" @reload="handleReload"></complete-item>
+		<complete-item v-for="item in list" :key="item.tid" :data="item" @afterUndo="handleAfterUndo"></complete-item>
     </div>
 </template>
 
@@ -33,8 +32,10 @@ export default {
 				console.warn("err:",err);
 			});
 		},
-		handleReload(){
+		handleAfterUndo(){
 			this.queryData();
+			//刷新待办事项列表
+			
 		}
 	}
 };

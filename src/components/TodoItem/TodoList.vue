@@ -1,6 +1,9 @@
 <template>
     <div>
-        <todo-item v-for="(item,index) in currentData" :data="item" :key="index" @delSuccess="handleDelSuccess"></todo-item>
+        <todo-item v-for="(item,index) in currentData" :data="item" :key="index" 
+			@afterDelItem="handleAfterDelItem"
+			@afterFinishedItem="handleAfterFinishedItem"
+		></todo-item>
     </div>
 </template>
 
@@ -29,8 +32,11 @@ export default {
 		};
 	},
 	methods:{
-		handleDelSuccess(id){
+		handleAfterDelItem(id){
 			this.$emit("delSuccess");
+		},
+		handleAfterFinishedItem(){
+			
 		}
 	}
 };
