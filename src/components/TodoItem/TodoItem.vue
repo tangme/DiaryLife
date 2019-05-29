@@ -85,7 +85,7 @@
 
 <template>
     <div>
-        <div ref="itemtodo" class="item-for-display" :class="{displayNone:isEdit,focusBg}" 
+        <div ref="itemtodo" draggable="false" class="item-for-display" :class="{displayNone:isEdit,focusBg}" 
 			@click.stop="changeView('edit')"
 			@dragover.prevent.stop="handleDragover"
 			@dragleave.stop="focusBg = false" 
@@ -163,11 +163,13 @@ export default {
 			this.focusBg = true;
 		},
 		handleDragend(){
+			console.log("drag end.");
 			this.focusBg = false;
 			this.$refs.itemtodo.removeAttribute("draggable");
 		},
 		handleMouseDown(){
-			this.$refs.itemtodo.setAttribute("draggable",true);
+			console.log("拖拽按钮点下了");
+			// this.$refs.itemtodo.setAttribute("draggable",true);
 		},
 		changeView(editView){
 			if(editView==="edit"){//编辑视图

@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import {fetchTodoList} from "@/api/todo";
+import TodoEventBus from "@/components/TodoItem/eventBus";
 import TodoItem from "@/components/TodoItem/TodoItem";
 export default {
 	name:"TodoList",
@@ -20,7 +22,12 @@ export default {
 			default:()=>[]
 		}
 	},
-	mounted(){},
+	created(){
+		TodoEventBus.$on("reloadTodo",()=>{
+			this.queryData();
+		});
+		this.queryData();
+	},
 	watch:{
 		data(val,oldVal){
 			this.currentData = val;
@@ -32,11 +39,29 @@ export default {
 		};
 	},
 	methods:{
-		handleAfterDelItem(id){
-			this.$emit("delSuccess");
+		/**
+         * [queryData 查询待办事项]
+         * @author tanglv 2018-08-13
+         */
+		queryData(){
+			fetchTodoList().then(res=>{
+				this.currentData = res;
+			}).catch(err=>{
+				console.warn("err:",err);
+			});
 		},
+		/**
+		 * 删除 待办后 事件
+		 */
+		handleAfterDelItem(id){
+			this.queryData();
+		},
+		/**
+		 * 完成 待办后 事件
+		 */
 		handleAfterFinishedItem(){
-			
+			this.queryData();
+			TodoEventBus.$emit("reloadUndo");
 		}
 	}
 };

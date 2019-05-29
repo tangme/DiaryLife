@@ -36,7 +36,7 @@
         <div class="input-todo">
             <input type="text" class="todoInput" ref="input" v-model="inputData" @keydown.enter="saveInfo" placeholder="要记录点什么呢~"/>
         </div>
-        <todo-list :data="showList" class="custom-todo-list" @delSuccess="handleDelSuccess"></todo-list>
+        <todo-list :data="showList" class="custom-todo-list"></todo-list>
 		<hr>
 		<div>
 			<complete-list class="custom-todo-list"></complete-list>
@@ -44,7 +44,7 @@
     </div>
 </template>
 <script>
-import {addTodo,fetchTodoList} from "@/api/todo";
+import {addTodo} from "@/api/todo";
 import TodoList from "@/components/TodoItem/TodoList";
 import CompleteList from "@/components/CompleteTodo/CompleteList";
 
@@ -59,7 +59,6 @@ export default {
         if(!!sessionStorage.getItem('todoList')){
             this.showList = JSON.parse(sessionStorage.getItem('todoList'))
         }*/
-		this.queryData();
 	},
 	data() {
 		return {
@@ -68,18 +67,6 @@ export default {
 		};
 	},
 	methods:{
-		/**
-         * [queryData description]
-         * @author tanglv 2018-08-13
-         */
-		queryData(){
-			let $this = this;
-			fetchTodoList().then(res=>{
-				$this.showList = res;
-			}).catch(err=>{
-				console.warn("err:",err);
-			});
-		},
 		saveInfo(){
 			let flag_index = this.showList.length;
 			addTodo(this.inputData).then(res=>{
@@ -101,9 +88,6 @@ export default {
             }
             console.log(JSON.parse(sessionStorage.getItem('todoList')));*/
 			
-		},
-		handleDelSuccess(){
-			this.queryData();
 		}
 	}
 };

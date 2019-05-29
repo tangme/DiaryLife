@@ -6,18 +6,23 @@
 
 <script>
 import {fetchFinishedTodoList} from "@/api/todo";
+import TodoEventBus from "@/components/TodoItem/eventBus";
 import CompleteItem from "@/components/CompleteTodo/CompleteItem";
 export default {
 	name:"CompleteList",
 	components:{
 		CompleteItem
 	},
+	created(){
+		TodoEventBus.$on("reloadUndo",()=>{
+			this.queryData();
+		});
+	},
 	mounted(){
 		this.init();
 	},
 	data(){
 		return{
-			data:null,
 			list:null
 		};
 	},
@@ -25,6 +30,9 @@ export default {
 		init(){
 			this.queryData();
 		},
+		/**
+		 * 查询 已完成待办
+		 */
 		queryData(){
 			fetchFinishedTodoList().then(res=>{
 				this.list = res;
@@ -32,10 +40,13 @@ export default {
 				console.warn("err:",err);
 			});
 		},
+		/**
+		 * 撤销 已完成待办
+		 */
 		handleAfterUndo(){
 			this.queryData();
 			//刷新待办事项列表
-			
+			TodoEventBus.$emit("reloadTodo");
 		}
 	}
 };
