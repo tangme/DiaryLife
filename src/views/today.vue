@@ -45,8 +45,8 @@
 </template>
 <script>
 import {addTodo} from "@/api/todo";
-import TodoList from "@/components/TodoItem/TodoList";
-import CompleteList from "@/components/CompleteTodo/CompleteList";
+import TodoList from "@/components/Todo/TodoList";
+import CompleteList from "@/components/Todo/CompleteList";
 
 export default {
 	components:{

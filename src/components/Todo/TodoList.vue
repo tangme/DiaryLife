@@ -1,6 +1,6 @@
 <template>
     <div>
-        <todo-item v-for="(item,index) in currentData" :data="item" :key="index" 
+        <todo-item v-for="(item,index) in datas" :data="item" :key="index" 
 			@afterDelItem="handleAfterDelItem"
 			@afterFinishedItem="handleAfterFinishedItem"
 		></todo-item>
@@ -9,33 +9,22 @@
 
 <script>
 import {fetchTodoList} from "@/api/todo";
-import TodoEventBus from "@/components/TodoItem/eventBus";
-import TodoItem from "@/components/TodoItem/TodoItem";
+import TodoEventBus from "@/components/Todo/todo-eventbus";
+import TodoItem from "@/components/Todo/TodoItem";
 export default {
 	name:"TodoList",
 	components:{
 		TodoItem
 	},
-	props:{
-		data:{
-			type:Array,
-			default:()=>[]
-		}
-	},
 	created(){
+		this.queryData();
 		TodoEventBus.$on("reloadTodo",()=>{
 			this.queryData();
 		});
-		this.queryData();
-	},
-	watch:{
-		data(val,oldVal){
-			this.currentData = val;
-		}
 	},
 	data(){
 		return{
-			currentData:this.data
+			datas:null
 		};
 	},
 	methods:{
@@ -45,7 +34,7 @@ export default {
          */
 		queryData(){
 			fetchTodoList().then(res=>{
-				this.currentData = res;
+				this.datas = res;
 			}).catch(err=>{
 				console.warn("err:",err);
 			});
@@ -53,7 +42,7 @@ export default {
 		/**
 		 * 删除 待办后 事件
 		 */
-		handleAfterDelItem(id){
+		handleAfterDelItem(){
 			this.queryData();
 		},
 		/**

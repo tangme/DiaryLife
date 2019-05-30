@@ -1,41 +1,36 @@
 <template>
     <div>
-		<complete-item v-for="item in list" :key="item.tid" :data="item" @afterUndo="handleAfterUndo"></complete-item>
+		<complete-item v-for="item in datas" :key="item.tid" :data="item" @afterUndo="handleAfterUndo"></complete-item>
     </div>
 </template>
 
 <script>
 import {fetchFinishedTodoList} from "@/api/todo";
-import TodoEventBus from "@/components/TodoItem/eventBus";
-import CompleteItem from "@/components/CompleteTodo/CompleteItem";
+import TodoEventBus from "@/components/Todo/todo-eventbus";
+import CompleteItem from "@/components/Todo/CompleteItem";
 export default {
 	name:"CompleteList",
 	components:{
 		CompleteItem
 	},
 	created(){
+		this.queryData();
 		TodoEventBus.$on("reloadUndo",()=>{
 			this.queryData();
 		});
 	},
-	mounted(){
-		this.init();
-	},
 	data(){
 		return{
-			list:null
+			datas:null
 		};
 	},
 	methods:{
-		init(){
-			this.queryData();
-		},
 		/**
 		 * 查询 已完成待办
 		 */
 		queryData(){
 			fetchFinishedTodoList().then(res=>{
-				this.list = res;
+				this.datas = res;
 			}).catch(err=>{
 				console.warn("err:",err);
 			});
