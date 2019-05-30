@@ -8,6 +8,7 @@ import _ from "lodash";
 import ws from "@/assets/js/ws";
 
 import "@/assets/iconfont/iconfont.js";
+import "@/styles/index.css";
 
 import IconSvg from "@/components/icon-component/icon-component";
 import $httpAxios from "@/assets/js/Utils";

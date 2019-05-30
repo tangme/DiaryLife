@@ -45,6 +45,7 @@
 </template>
 <script>
 import {addTodo} from "@/api/todo";
+import TodoEventBus from "@/components/Todo/todo-eventbus";
 import TodoList from "@/components/Todo/TodoList";
 import CompleteList from "@/components/Todo/CompleteList";
 
@@ -72,6 +73,7 @@ export default {
 			addTodo(this.inputData).then(res=>{
 				let tmpData = {"tid":res.data.tid,"content":this.showList[flag_index].content};
 				this.$set(this.showList,flag_index,tmpData);
+				TodoEventBus.$emit("reloadTodo");
 			}).catch(err=>{
 				console.warn("err:",err);
 			});

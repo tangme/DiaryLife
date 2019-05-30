@@ -55,7 +55,7 @@ export default {
 		handleUndo(){
 			updateTodoToUndo(this.data.tid).then(res=>{
 				if(res.code === 1){
-					this.$emit("afterUndo");
+					this.$emit("afterUndo",this.data.tid);
 				}
 			});
 		}

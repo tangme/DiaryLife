@@ -66,9 +66,9 @@
 
 /* --------------- other css ---------------*/
 
-.displayNone{
+/* .displayNone{
     display: none;
-}
+} */
 
 .focusBg{
     background-color: bisque;
@@ -81,32 +81,42 @@
 .custom-icon-svg:hover{
 	color:aliceblue;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: .1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
 </style>
 
 <template>
     <div>
-        <div ref="itemtodo" draggable="false" class="item-for-display" :class="{displayNone:isEdit,focusBg}" 
-			@click.stop="changeView('edit')"
-			@dragover.prevent.stop="handleDragover"
-			@dragleave.stop="focusBg = false" 
-			@dragend.stop="handleDragend"
-		>
-            <div class="item-for-display-content">{{data.content}}</div>
-            <div class="item-for-display-setting">
-                <icon-svg iconClass="More"/>
-                <div class="item-for-display-setting-toolsgroup">
-                    <icon-svg iconClass="el-icon-delete" class="custom-icon-svg" title="删除" @click.stop="handleDelItem(data.tid)"/>
-                    <icon-svg iconClass="finished-" class="custom-icon-svg" title="完成此项" @click.stop="handleItemDone(data.tid)"/>
-                    <icon-svg iconClass="sort" class="custom-icon-svg" title="按住并拖动以排序"
-                        @mousedown.stop.native="handleMouseDown"
-                        @click.stop
-                    />
-                </div>
-            </div>
-        </div>
-        <div class="item-for-edit" :class="{displayNone:!isEdit}">
-            <input type="text" ref="input" :value="data.content" @blur="changeView" @keyup.stop.enter="handleUpdate">
-        </div>
+		<transition name="fade" mode="out-in" v-on:after-enter="afterEnter">
+			<div ref="itemtodo" draggable="false" class="item-for-display" :class="{focusBg}" v-if="!isEdit" :key="data.tid"
+				@click.stop="changeView('edit')"
+				@dragover.prevent.stop="handleDragover"
+				@dragleave.stop="focusBg = false" 
+				@dragend.stop="handleDragend"
+			>
+				<div class="item-for-display-content">{{data.content}}</div>
+				<div class="item-for-display-setting">
+					<icon-svg iconClass="More"/>
+					<div class="item-for-display-setting-toolsgroup">
+						<icon-svg iconClass="el-icon-delete" class="custom-icon-svg" title="删除" @click.stop="handleDelItem"/>
+						<icon-svg iconClass="finished-" class="custom-icon-svg" title="完成此项" @click.stop="handleItemDone"/>
+						<icon-svg iconClass="sort" class="custom-icon-svg" title="按住并拖动以排序"
+							@mousedown.stop.native="handleMouseDown"
+							@click.stop
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="item-for-edit" v-else :key="data.tid + 1">
+				<input type="text" ref="input" :value="data.content" @blur="changeView" @keyup.stop.enter="handleUpdate">
+			</div>
+		</transition>
     </div>
 </template>
 
@@ -126,13 +136,21 @@ export default {
 		};
 	},
 	methods:{
+		afterEnter(){
+			if(this.isEdit){
+				this.$nextTick(()=>{
+					console.log();
+					this.$refs.input.focus();
+				});
+			}
+		},
 		/**
          * 删除 待办项目
          */
-		handleDelItem(id){
-			delTodo(id).then(res=>{
+		handleDelItem(){
+			delTodo(this.data.tid).then(res=>{
 				if(res.code === 1){
-					this.$emit("afterDelItem",id);
+					this.$emit("afterDelItem",this.data.tid);
 				}
 			});
 		},
@@ -145,17 +163,17 @@ export default {
 				content:event.target.value}).then(res=>{
 				this.isEdit = false;
 				if(res.code === 1){
-					this.$emit("afterUpdateItem");
+					this.$emit("afterUpdateItem",this.data.tid);
 				}
 			});
 		},
 		/**
 		 * 完成 待办项目
 		 */
-		handleItemDone(id){
-			finishedTodo(id).then(res=>{
+		handleItemDone(){
+			finishedTodo(this.data.tid).then(res=>{
 				if(res.code === 1){
-					this.$emit("afterFinishedItem");
+					this.$emit("afterFinishedItem",this.data.tid);
 				}
 			});
 		},
@@ -174,9 +192,9 @@ export default {
 		changeView(editView){
 			if(editView==="edit"){//编辑视图
 				this.isEdit = true;
-				this.$nextTick(()=>{
+				/* this.$nextTick(()=>{
 					this.$refs.input.focus();
-				});
+				}); */
 			}else{//查看视图
 				this.isEdit = false;
 			}

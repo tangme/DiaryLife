@@ -1,6 +1,20 @@
+<style>
+.list-complete-item {
+  transition: all .2s;
+  display: block;
+  margin-right: 10px;
+}
+.list-complete-enter, .list-complete-leave-to{
+  opacity: 0;
+  transform: translateY(30px);
+}
+</style>
 <template>
     <div>
-		<complete-item v-for="item in datas" :key="item.tid" :data="item" @afterUndo="handleAfterUndo"></complete-item>
+		<transition-group name="list-complete">
+			<complete-item v-for="item in datas" :key="item.tid" :data="item" class="list-complete-item"
+			@afterUndo="handleAfterUndo"></complete-item>
+		</transition-group>
     </div>
 </template>
 
@@ -38,10 +52,12 @@ export default {
 		/**
 		 * 撤销 已完成待办
 		 */
-		handleAfterUndo(){
-			this.queryData();
-			//刷新待办事项列表
-			TodoEventBus.$emit("reloadTodo");
+		handleAfterUndo(id){
+			let index = this.datas.findIndex((item)=>{
+				return item.tid === id;
+			});
+			this.datas.splice(index,1);
+			TodoEventBus.$emit("reloadTodo");//刷新待办事项列表
 		}
 	}
 };
