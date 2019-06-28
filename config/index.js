@@ -19,7 +19,7 @@ module.exports = {
 				target: "http://localhost:3000",
 				changeOrigin: true
 			},
-			"user":{
+			"/user":{
 				target: "http://localhost:3000",
 				changeOrigin: true
 			}

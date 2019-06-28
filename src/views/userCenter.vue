@@ -71,15 +71,14 @@
     </div>
 </template>
 <script>
-import tanglvinput from "@/components/input/input";
 import ExpandWidthInput from "@/components/expand-width-input";
 import { sendRequest } from "@/assets/js/Utils";
 import { HOST } from "@/assets/config";
+import {updateUser} from "@/api/user";
 
 export default {
 	created() {},
 	components: {
-		tanglvinput,
 		ExpandWidthInput
 	},
 	data() {
@@ -99,12 +98,7 @@ export default {
          * @author tanglv 2018-08-08
          */
 		updateData() {
-			sendRequest(HOST + "/user/updateUserInfo", {
-				account: this.userInfo.account,
-				nickName: this.userInfo.nickName,
-				phone: this.userInfo.phone,
-				email: this.userInfo.email
-			}).then(res => {
+			updateUser(this.userInfo).then(res=>{
 				console.log(res);
 			});
 		}
